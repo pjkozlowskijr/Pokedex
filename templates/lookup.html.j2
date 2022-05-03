@@ -1,9 +1,52 @@
 {% extends 'base.html.j2' %}
 {% block title %}
-Lookup
+Home
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Pokedex!</h1>
-    <p>This webpage will allow you to lookup Pokemon characteristics. Please click on the "Lookup" link in the navbar to begin.</p>
+
+<h1>Pokemon Lookup</h1>
+<form action="/lookup" method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Pokemon Name</label>
+        <input type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp">
+        <div id="nameHelp" class="form-text">Enter the name of the Pokemon you'd like to lookup.</div>
+    </div>
+    <div style="color:red"><small>{{error}}</small></div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if pokemon_table %}
+<table class="table table-striped table-secondary table-bordered">
+    <tr class="w-10">
+        <th scope="row">Name</th>
+        <td>{{(pokemon_table.name).title()}}</td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Picture</th>
+        <td><img src="{{pokemon_table.sprite}}" alt="Picture of {{pokemon_table.name}}."></td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Base Experience</th>
+        <td>{{pokemon_table.base_experience}}</td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Base HP</th>
+        <td>{{pokemon_table.hp_base}}</td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Base Attack</th>
+        <td>{{pokemon_table.attack_base}}</td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Base Defense</th>
+        <td>{{pokemon_table.defense_base}}</td>
+    </tr>
+    <tr class="w-10">
+        <th scope="row">Ability</th>
+        <td>{{(pokemon_table.ability_name).title()}}</td>
+    </tr>
+</table>
+{% endif%}
+
 {% endblock %}

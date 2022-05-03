@@ -1,49 +1,9 @@
 {% extends 'base.html.j2' %}
 {% block title %}
-Home
+Lookup
 {% endblock %}
 
 {% block content %}
-
-<h1>Pokemon Lookup</h1>
-<form>
-    <div class="mb-3">
-        <label for="name" class="form-label">Pokemon Name</label>
-        <input type="text" class="form-control" id="name" aria-describedby="nameHelp">
-        <div id="nameHelp" class="form-text">Enter the name of the Pokemon you'd like to lookup.</div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<table class="table">
-    <tr>
-        <th scope="row">Name</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Picture</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Base Experience</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Base HP</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Base Attack</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Base Defense</th>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">Ability</th>
-        <td></td>
-    </tr>
-</table>
-
+    <h1>Welcome to the Pokedex!</h1>
+    <p>This webpage will allow you to lookup Pokemon characteristics. Please click on the "Lookup" link in the navbar to begin.</p>
 {% endblock %}
