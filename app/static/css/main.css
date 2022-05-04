@@ -1,0 +1,20 @@
+body{
+    font-family: VT323
+}
+
+.navbar-brand{
+    font-size: 32px;
+    padding: 0;
+    margin-right: 32px;
+}
+
+.nav-link{
+    font-size: 24px;
+    padding: 0;
+    margin-right: 16px;
+}
+
+.container{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}

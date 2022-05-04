@@ -1,0 +1,17 @@
+.container{
+    text-align: center;
+}
+
+h1{
+    font-size: 72px;
+    margin: 0;
+}
+
+#pokedex{
+    width: 30vw;
+    margin: 20px;
+}
+
+p{
+    font-size: 36px;
+}

@@ -1,11 +1,15 @@
 {% extends 'base.html.j2' %}
 
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
 {% block title %}
 Home
 {% endblock %}
 
 {% block content %}
     <h1>Welcome to the Pokedex!</h1>
-    <img src="http://static.marriedgames.com.br/66a6a4d3-pokedex_kanto.png" width=300>
-    <p>This webpage will allow you to lookup data on your favorite Pokemon. Please click on the "Pokemon Lookup" link in the navbar to begin.</p>
+    <img id="pokedex" src="{{url_for('static', filename='images/pokedex.png')}}">
+    <p>The Pokedex allows you to lookup data on your favorite Pokemon. Please click the "Pokemon Lookup" link at the top of the page to begin.</p>
 {% endblock %}
