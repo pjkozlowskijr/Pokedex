@@ -1,19 +1,24 @@
 {% extends 'base.html.j2' %}
+
 {% block title %}
-Home
+Lookup
 {% endblock %}
 
 {% block content %}
-
 <h1>Pokemon Lookup</h1>
-<form action="/lookup" method="POST">
-    <div class="mb-3">
-        <label for="name" class="form-label">Pokemon Name</label>
-        <input type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp">
-        <div id="nameHelp" class="form-text">Enter the name of the Pokemon you'd like to lookup.</div>
+<form action="{{url_for('lookup')}}" method="POST">
+    {{form.hidden_tag()}}
+    <div>
+    {{form.poke_name.label(class="form-label")}}
+    {{form.poke_name(class="form-control")}}
+    {% for error in form.poke_name.errors %}
+    <span style="color:red">{{error}}</span>
+    {% endfor %}
     </div>
-    <div style="color:red"><small>{{error}}</small></div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <br>
+    <div>
+    {{form.search(class="btn btn-success form-control")}}
+    </div>
 </form>
 
 {% if pokemon_table %}
@@ -47,6 +52,6 @@ Home
         <td class="col-2 text-center">{{(pokemon_table.ability_name).title()}}</td>
     </tr>
 </table>
-{% endif%}
+{% endif %}
 
 {% endblock %}
