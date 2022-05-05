@@ -1,0 +1,12 @@
+#login_form{
+    width: 30vw;
+    margin: auto;
+}
+
+#login_form.form-label{
+    margin: 0;
+}
+
+#email, #password{
+    margin-bottom: 5vh;
+}

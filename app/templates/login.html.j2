@@ -1,35 +1,37 @@
 {% extends 'base.html.j2' %}
 
-{# {% block css %}
+{% block css %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
-{% endblock %} #}
+{% endblock %}
 
 {% block title %}
 Login
 {% endblock %}
 
 {% block content %}
-<h1>Login</h1>
-<p>Login to begin using the Pokedex.</p>
+<div id="login_form">
+    <h1>Login</h1>
+    <p>Login to begin using the Pokedex.</p>
 
-<form action="{{url_for('login')}}" method="POST">
-    {{form.hidden_tag()}}
-    <div>
-        {{form.email.label(class="form-label")}}
-        {{form.email(class="form-control")}}
-        {% for error in form.email.errors %}
-            <small style="color:red;">{{error}}</small>
-        {% endfor %}
-    </div>
-    <div>
-        {{form.password.label(class="form-label")}}
-        {{form.password(class="form-control")}}
-        {% for error in form.password.errors %}
-            <small style="color:red;">{{error}}</small>
-        {% endfor %}
-    </div>
-    <div>
-        {{form.submit(class="btn btn-primary form-control")}}
-    </div>
-</form>
+    <form action="{{url_for('login')}}" method="POST">
+        {{form.hidden_tag()}}
+        <div>
+            {{form.email.label(class="form-label")}}
+            {{form.email(class="form-control")}}
+            {% for error in form.email.errors %}
+                <small style="color:red;">{{error}}</small>
+            {% endfor %}
+        </div>
+        <div>
+            {{form.password.label(class="form-label")}}
+            {{form.password(class="form-control")}}
+            {% for error in form.password.errors %}
+                <small style="color:red;">{{error}}</small>
+            {% endfor %}
+        </div>
+        <div>
+            {{form.submit(class="btn btn-primary form-control")}}
+        </div>
+    </form>
+</div>
 {% endblock %}

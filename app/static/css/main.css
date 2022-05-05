@@ -11,6 +11,8 @@ body{
 .nav-link{
     font-size: 24px;
     padding: 0;
+}
+.nav-link:not(:last-child){
     margin-right: 16px;
 }
 
