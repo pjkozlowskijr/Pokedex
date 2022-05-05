@@ -4,7 +4,7 @@ from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     email = db.Column(db.String, unique=True, index=True)

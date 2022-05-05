@@ -38,9 +38,9 @@ def login():
     if request.method == "POST" and form.validate_on_submit():
         email = form.email.data.lower()
         password = form.password.data
-        user_lookup = User.query.filter_by(email=email).first()
-        if user_lookup and user_lookup.confirm_password(password):
-            login_user(user_lookup)
+        user = User.query.filter_by(email=email).first()
+        if user and user.confirm_password(password):
+            login_user(user)
             flash("Login successful. You may now use the Pokedex!", "success")
             return redirect(url_for("index"))
         flash("Incorrect email or password.", "danger")
