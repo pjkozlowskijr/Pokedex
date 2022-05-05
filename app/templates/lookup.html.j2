@@ -30,13 +30,37 @@ Lookup
 {% if pokemon_table %}
 
 <div class="card">
-    <div class="row">
+    <div class="row g-0 align-items-center">
         <div class="col-md-4">
             <img src="{{pokemon_table.sprite}}" class="img-fluid" alt="Picture of {{pokemon_table.name}}.">
         </div>
         <div class="col-md-8">
             <div class="card-body">
                 <h2 class="card-title">{{(pokemon_table.name).title()}}</h2>
+                <table class="table table-striped table-secondary table-bordered border-dark align-middle">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Base Experience</th>
+                            <td>{{pokemon_table.base_experience}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base HP</th>
+                            <td>{{pokemon_table.hp_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base Attack</th>
+                            <td>{{pokemon_table.attack_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base Defense</th>
+                            <td>{{pokemon_table.defense_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ability</th>
+                            <td>{{(pokemon_table.ability_name).title()}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -44,37 +68,6 @@ Lookup
 
 
 
-<table class="table table-striped table-secondary table-bordered border-dark align-middle">
-    <tbody>
-        <tr>
-            <th scope="row">Name</th>
-            <td>{{(pokemon_table.name).title()}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Picture</th>
-            <td><img src="{{pokemon_table.sprite}}" alt="Picture of {{pokemon_table.name}}."></td>
-        </tr>
-        <tr>
-            <th scope="row">Base Experience</th>
-            <td>{{pokemon_table.base_experience}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Base HP</th>
-            <td>{{pokemon_table.hp_base}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Base Attack</th>
-            <td>{{pokemon_table.attack_base}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Base Defense</th>
-            <td>{{pokemon_table.defense_base}}</td>
-        </tr>
-        <tr>
-            <th scope="row">Ability</th>
-            <td>{{(pokemon_table.ability_name).title()}}</td>
-        </tr>
-    </tbody>
-</table>
+
 {% endif %}
 {% endblock %}
