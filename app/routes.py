@@ -1,11 +1,12 @@
 from flask import render_template, request, flash, redirect, url_for
 import requests
-from .forms import PokeLookupForm, RegisterForm
+from .forms import PokeLookupForm, RegisterForm, LoginForm
 from app import app
 from .models import User
-
+from flask_login import login_required, login_user, current_user, logout_user
 
 @app.route("/", methods=["GET"])
+@login_required
 def index():
     return render_template("index.html.j2")
 
@@ -26,16 +27,28 @@ def register():
         except:
             flash("There was an unexpected error creating your account. Please try again later.", "danger")
             return render_template("register.html.j2", form=form)
-        flash("You have successfully registered. You may now use the Pokedex!", "success")
+        flash("You have successfully registered. Please login to use the Pokedex!", "success")
         return redirect(url_for("login"))
     return render_template("register.html.j2", form=form)
 
 
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     pass
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if request.method == "POST" and form.validate_on_submit():
+        email = form.email.data.lower()
+        password = form.password.data
+        user_lookup = User.query.filter_by(email=email).first()
+        if user_lookup and user_lookup.confirm_password(password):
+            login_user(user_lookup)
+            flash("Login successful. You may now use the Pokedex!", "success")
+            return redirect(url_for("index"))
+        flash("Incorrect email or password.", "danger")
+        return render_template("login.html.j2", form=form)
+    return render_template("login.html.j2", form=form)
 
 @app.route("/lookup", methods=["GET", "POST"])
+@login_required
 def lookup():
     form = PokeLookupForm()
     if request.method == "POST":
@@ -60,3 +73,11 @@ def lookup():
         }
         return render_template("lookup.html.j2", pokemon_table=pokemon_dict, form=form)
     return render_template("lookup.html.j2", form=form)
+
+@app.route("/logout")
+@login_required
+def logout():
+    if current_user:
+        logout_user()
+        flash("You have loged out successfully.", "primary")
+        return redirect(url_for("login"))

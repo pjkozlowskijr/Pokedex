@@ -29,6 +29,10 @@ class User(UserMixin, db.Model):
         self.email = data["email"]
         self.password = self.hash_password(data["password"])
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 @login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
