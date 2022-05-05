@@ -13,6 +13,6 @@ migrate = Migrate(app, db)
 
 login.login_view = "login"
 login.login_message = "Please login."
-login.login_message_category = "primary"
+login.login_message_category = "danger"
 
 from app import routes, models
