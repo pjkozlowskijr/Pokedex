@@ -11,18 +11,19 @@ Lookup
 {% block content %}
 <h1>Pokemon Lookup</h1>
 <p>Enter your desired Pokemon name in the search bar below. Click "Search" to lookup the Pokemon using the Pokedex.</p>
+
 <form action="{{url_for('lookup')}}" method="POST">
     {{form.hidden_tag()}}
     <div>
-    {{form.poke_name.label(class="form-label")}}
-    {{form.poke_name(class="form-control")}}
-    {% for error in form.poke_name.errors %}
-    <span style="color:red">{{error}}</span>
-    {% endfor %}
+        {{form.poke_name.label(class="form-label")}}
+        {{form.poke_name(class="form-control")}}
+        {% for error in form.poke_name.errors %}
+        <span style="color:red">{{error}}</span>
+        {% endfor %}
     </div>
     <br>
     <div>
-    {{form.search(class="btn btn-dark form-control")}}
+        {{form.search(class="btn btn-dark form-control")}}
     </div>
 </form>
 
@@ -60,5 +61,4 @@ Lookup
     </tbody>
 </table>
 {% endif %}
-
 {% endblock %}
