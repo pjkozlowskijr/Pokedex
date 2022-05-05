@@ -16,6 +16,11 @@ p{
     border: 1px solid black;
 }
 
+.card-title{
+    font-size: 48px;
+    text-align: center;
+}
+
 .form-label{
     font-size: 24px;
     margin: 0;
@@ -31,7 +36,7 @@ p{
 }
 
 .table th{
-    width: 15vw;
+    width: 12vw;
 }
 
 .table td{
