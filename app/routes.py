@@ -31,7 +31,6 @@ def register():
         return redirect(url_for("login"))
     return render_template("register.html.j2", form=form)
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
@@ -56,15 +55,15 @@ def lookup():
         url = f"https://pokeapi.co/api/v2/pokemon/{pokemon}"
         response = requests.get(url)
         if not response.ok:
-            error_string = "There was an error. Please try again."
-            return render_template("lookup.html.j2", error=error_string, form=form)
+            flash("There was an error, most likely because the Pokemon you entered does not exist. Please try again.", "danger")
+            return render_template("lookup.html.j2", form=form)
         if not response.json():
-            error_string = "There was an error, most likely because the Pokemon you entered does not exist. Please try again."
-            return render_template("lookup.html.j2", error=error_string, form=form)
+            flash("There was an unexpected error. Please try again.", "danger")
+            return render_template("lookup.html.j2", form=form)
         poke_data = response.json()
         pokemon_dict = {
             "name": poke_data["species"]["name"],
-            "sprite": poke_data["sprites"]["front_shiny"],
+            "sprite": poke_data["sprites"]["other"]["home"]["front_default"],
             "base_experience": poke_data["base_experience"],
             "ability_name": poke_data["abilities"][0]["ability"]["name"],
             "attack_base": poke_data["stats"][1]["base_stat"],
@@ -79,5 +78,5 @@ def lookup():
 def logout():
     if current_user:
         logout_user()
-        flash("You have loged out successfully.", "primary")
+        flash("You have logged out successfully.", "primary")
         return redirect(url_for("login"))
