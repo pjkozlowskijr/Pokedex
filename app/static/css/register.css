@@ -1,0 +1,7 @@
+#reg_form .form-label{
+    margin: 0;
+}
+
+#reg_form .form-control{
+    margin-bottom: 3vh;
+}

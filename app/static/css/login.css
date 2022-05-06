@@ -3,10 +3,10 @@
     margin: auto;
 }
 
-#login_form.form-label{
+#login_form .form-label{
     margin: 0;
 }
 
-#email, #password{
-    margin-bottom: 5vh;
+#login_form .form-control{
+    margin-bottom: 3vh;
 }
