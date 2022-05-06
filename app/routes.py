@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for
 import requests
-from .forms import PokeLookupForm, RegisterForm, LoginForm
+from .forms import PokeLookupForm, RegisterForm, LoginForm, EditProfileForm
 from app import app
 from .models import User
 from flask_login import login_required, login_user, current_user, logout_user
@@ -20,6 +20,7 @@ def register():
                 "last_name": form.last_name.data.title(),
                 "email": form.email.data.lower(),
                 "password": form.password.data,
+                "icon": form.icon.data,
             }
             new_user_object = User()
             new_user_object.form_to_db(new_user_data)
@@ -29,6 +30,30 @@ def register():
             return render_template("register.html.j2", form=form)
         flash("You have successfully registered. Please login to use the Pokedex!", "success")
         return redirect(url_for("login"))
+    return render_template("register.html.j2", form=form)
+
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile():
+    form = EditProfileForm()
+    if request.method == "POST" and form.validate_on_submit():
+        new_user_data = {
+            "first_name": form.first_name.data.title(),
+            "last_name": form.last_name.data.title(),
+            "email": form.email.data.lower(),
+            "password": form.password.data,
+            "icon": int(form.icon.data) if int(form.icon.data) != 9000 else current_user.icon,
+        }
+        user = User.query.filter_by(email=new_user_data["email"]).first()
+        if user and user.email != current_user.email:
+            flash("Email is already in use.", "danger")
+            return redirect(url_for("edit_profile"))
+        try:
+            current_user.form_to_db(new_user_data)
+            current_user.save()
+            flash("Your profile was updated successfully.", "success")
+        except:
+            flash("There was an unexpected error. Please try again.", "danger")
+        return redirect(url_for("index"))
     return render_template("register.html.j2", form=form)
 
 @app.route("/login", methods=["GET", "POST"])
