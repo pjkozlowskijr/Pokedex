@@ -23,7 +23,7 @@
     <p>Register below to gain access to the Pokedex.</p>
     {% endif %}
 
-    <form action="{{url_for('edit_profile') if current_user.is_authenticated else url_for('register')}}" method="POST">
+    <form action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register')}}" method="POST">
         {{form.hidden_tag()}}
         <div>
             {{form.icon.label(class="form-label")}}

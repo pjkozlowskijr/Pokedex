@@ -1,13 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
-from .models import User
+from ...models import User
 import random
 from jinja2.utils import markupsafe
-
-class PokeLookupForm(FlaskForm):
-    poke_name = StringField("Pokemon Name", validators=[DataRequired()])
-    search = SubmitField("Search")
 
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
