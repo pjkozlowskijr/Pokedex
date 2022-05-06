@@ -1,10 +1,13 @@
 .container{
     text-align: center;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 h1{
     font-size: 72px;
-    margin: 0;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
 }
 
 #pokedex{

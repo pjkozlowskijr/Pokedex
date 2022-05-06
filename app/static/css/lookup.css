@@ -5,8 +5,9 @@ h1{
 }
 
 p{
-    font-size: 24px;
+    font-size: 18px;
     text-align: center;
+    font-style: italic;
 }
 
 .card{
@@ -19,6 +20,13 @@ p{
 .card-title{
     font-size: 48px;
     text-align: center;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+#lookup_form{
+    width: 50vw;
+    margin: auto;
 }
 
 .form-label{

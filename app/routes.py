@@ -6,7 +6,6 @@ from .models import User
 from flask_login import login_required, login_user, current_user, logout_user
 
 @app.route("/", methods=["GET"])
-@login_required
 def index():
     return render_template("index.html.j2")
 
