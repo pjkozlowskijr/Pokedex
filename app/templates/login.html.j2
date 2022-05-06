@@ -11,7 +11,7 @@ Login
 {% block content %}
 <div id="login_form">
     <h1>Login</h1>
-    <p>Login to begin using the Pokedex.</p>
+    <br>
 
     <form action="{{url_for('auth.login')}}" method="POST">
         {{form.hidden_tag()}}
@@ -30,7 +30,7 @@ Login
             {% endfor %}
         </div>
         <div>
-            {{form.submit(class="btn btn-primary form-control")}}
+            {{form.submit(class="btn form-control")}}
         </div>
     </form>
 </div>

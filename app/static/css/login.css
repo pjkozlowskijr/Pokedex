@@ -6,6 +6,7 @@
 #login_form .form-label{
     margin: 0;
     font-size: 24px;
+    color: rgb(223, 222, 195);
 }
 
 #login_form .form-control{
@@ -16,9 +17,14 @@
 h1{
     font-size: 56px;
     margin: 0;
+    color: rgb(223, 222, 195);
 }
 
-p{
-    font-size: 18px;
-    font-style: italic;
+.btn{
+    background-color: rgb(58, 61, 56);
+    color: rgb(223, 222, 195);
+}
+
+.btn:hover{
+    color: rgb(86, 115, 130)
 }

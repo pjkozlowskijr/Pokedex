@@ -6,6 +6,7 @@
 #reg_form .form-label{
     margin: 0;
     font-size: 24px;
+    color: rgb(223, 222, 195);
 }
 
 #reg_form .form-control{
@@ -21,10 +22,30 @@
 h1{
     font-size: 56px;
     margin: 0;
+    color: rgb(223, 222, 195);
 }
 
 p{
     font-size: 18px;
     font-style: italic;
     margin-bottom: 24px;
+    color: rgb(223, 222, 195);
+}
+
+.btn{
+    background-color: rgb(58, 61, 56);
+    color: rgb(223, 222, 195);
+}
+
+.col{
+    color: rgb(223, 222, 195);
+    line-height: 1em;
+}
+
+hr{
+    color: rgb(223, 222, 195);
+}
+
+.btn:hover{
+    color: rgb(86, 115, 130)
 }

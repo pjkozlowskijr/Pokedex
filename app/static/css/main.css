@@ -1,5 +1,11 @@
 body{
-    font-family: VT323
+    font-family: VT323;
+    background: rgb(86, 115, 130)
+}
+
+.navbar{
+    color: rgb(196, 202, 208);
+    background-color: rgb(58, 61, 56);
 }
 
 .navbar-brand{
@@ -11,6 +17,11 @@ body{
 .nav-link{
     font-size: 24px;
     padding: 0;
+    color: rgb(196, 202, 208)
+}
+
+.nav-link:hover{
+    color: rgb(223, 222, 195);
 }
 
 .nav-link:not(:last-child){

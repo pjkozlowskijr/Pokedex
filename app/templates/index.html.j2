@@ -9,13 +9,17 @@ Home
 {% endblock %}
 
 {% block content %}
-<div class="row mt-5">
+<div class="row mt-5 d-flex align-items-center">
     <div class="col-5">
-        <img id="pokedex" src="https://res.cloudinary.com/detcvmtip/image/upload/v1651806710/pokedex_images/pokedex_ke6ryv.png">
+        <img id="pokedex" src="https://res.cloudinary.com/detcvmtip/image/upload/v1651860229/pokedex_images/Ash_Ketchum_fuuxzr.png">
     </div>
     <div class="col-7">
         <h1>Welcome to the Pokedex!</h1>
+        {% if current_user.is_authenticated %}
         <p>The Pokedex allows you to lookup data on your favorite Pokemon. Please click the "Pokemon Lookup" link at the top of the page to begin.</p>
+        {% else %}
+        <p>You must be a registered user to access the Pokedex. Click "Login" or "Register" in the top-right to begin.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

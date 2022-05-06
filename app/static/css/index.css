@@ -8,13 +8,15 @@ h1{
     font-size: 72px;
     margin-top: 3vh;
     margin-bottom: 3vh;
+    color: rgb(223, 222, 195);
 }
 
 #pokedex{
-    width: 30vw;
+    height: 70vh;
     margin: 20px;
 }
 
 p{
     font-size: 36px;
+    color: rgb(223, 222, 195);
 }

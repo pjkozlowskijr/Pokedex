@@ -18,9 +18,11 @@
     {% if current_user.is_authenticated %}
     <h1>Edit Profile</h1>
     <p>Edit your profile by completing all fields in the form below.</p>
+    <hr>
     {% else %}
     <h1>Register</h1>
     <p>Register below to gain access to the Pokedex.</p>
+    <hr>
     {% endif %}
 
     <form action="{{url_for('auth.edit_profile') if current_user.is_authenticated else url_for('auth.register')}}" method="POST">
@@ -82,7 +84,7 @@
             {% endfor %}
         </div>
         <div>
-            {{form.submit(class="btn btn-primary form-control")}}
+            {{form.submit(class="btn form-control")}}
         </div>
     </form>
 </div>

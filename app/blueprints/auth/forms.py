@@ -23,7 +23,7 @@ class RegisterForm(FlaskForm):
     av3_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av3}.svg' height='100px'")
     av4_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av4}.svg' height='100px'")
 
-    icon = RadioField("Avatar", validators=[DataRequired()], choices = [(av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
+    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
 
     def validate_email(form, field):
         email_already_used = User.query.filter_by(email=field.data).first()
@@ -53,4 +53,4 @@ class EditProfileForm(FlaskForm):
     av3_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av3}.svg' height='100px'")
     av4_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av4}.svg' height='100px'")
 
-    icon = RadioField("Avatar", validators=[DataRequired()], choices = [(9000, "Keep Avatar"), (av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
+    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(9000, "Keep Avatar"), (av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
