@@ -31,44 +31,55 @@ Lookup
 
 {% if pokemon_table %}
     <div class="card">
-    <h2 class="card-title">{{(pokemon_table.name).title()}}</h2>
+    <h2 class="card-title">{{pokemon_table.name.title()}} - #{{pokemon_table.id}}</h2>
+        <div class="row g-0 align-items-center">
+            <div class="col-md mx-4">
+                <table id="phys" class="table table-sm table-borderless align-middle">
+                    <tr>
+                        <th scope="row">Habitat</th>
+                        <td>{{pokemon_table.habitat.title()}}</td>
+                        <th scope="row">Height</th>
+                        <td>{{pokemon_table.height}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Gender</th>
+                        <td>{{pokemon_table.gender}}</td>
+                        <th scope="row">Weight</th>
+                        <td>{{pokemon_table.weight}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <div class="row g-0 align-items-center">
             <div class="col-md-5">
                 <img src="{{pokemon_table.sprite}}" class="img-fluid d-block mx-auto" alt="Picture of {{pokemon_table.name}}.">
             </div>
             <div class="col-md-7">
-                <div class="card-body">
-                    <table class="table table-borderless align-middle">
-                        <tbody>
-                            <tr>
-                                <th scope="row">ID #</th>
-                                <td>{{pokemon_table.id}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Height</th>
-                                <td>{{pokemon_table.height}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Base Experience</th>
-                                <td>{{pokemon_table.base_experience}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Base HP</th>
-                                <td>{{pokemon_table.hp_base}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Base Attack</th>
-                                <td>{{pokemon_table.attack_base}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Base Defense</th>
-                                <td>{{pokemon_table.defense_base}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Ability</th>
-                                <td>{{(pokemon_table.ability_name).title()}}</td>
-                            </tr>
-                        </tbody>
+                <div class="card-body pt-0">
+                    <table id="stats" class="table table-sm table-borderless align-middle">
+                        <tr>
+                            <th id="stats_head" colspan="2">Stats</th>
+                        </tr>
+                        <tr>
+                            <th>Base Experience</th>
+                            <td>{{pokemon_table.base_experience}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base HP</th>
+                            <td>{{pokemon_table.hp_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base Attack</th>
+                            <td>{{pokemon_table.attack_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Base Defense</th>
+                            <td>{{pokemon_table.defense_base}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Ability</th>
+                            <td>{{(pokemon_table.ability_name).title()}}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
