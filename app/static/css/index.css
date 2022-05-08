@@ -11,9 +11,9 @@ h1{
     color: rgb(223, 222, 195);
 }
 
-#pokedex{
+.car_photos{
     height: 70vh;
-    margin: 20px;
+    margin: auto;
 }
 
 p{
