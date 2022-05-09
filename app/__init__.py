@@ -14,7 +14,7 @@ def create_app(config_class=Config):
 
     login.init_app(app)
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
 
     login.login_view = "auth.login"
     login.login_message = "Please login."

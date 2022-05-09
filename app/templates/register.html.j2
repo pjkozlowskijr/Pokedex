@@ -63,6 +63,13 @@
             {% endfor %}
         </div>
         <div class="form_lines">
+            {{form.fav_pokemon.label(class="form-label")}}
+            {{form.fav_pokemon(class="form-control", value=current_user.fav_pokemon)}}
+            {% for error in form.last_name.errors %}
+                <small>{{error}}</small>
+            {% endfor %}
+        </div>
+        <div class="form_lines">
             {{form.email.label(class="form-label")}}
             {{form.email(class="form-control", value=current_user.email)}}
             {% for error in form.email.errors %}

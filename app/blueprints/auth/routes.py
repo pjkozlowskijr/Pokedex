@@ -3,6 +3,7 @@ from .forms import RegisterForm, LoginForm, EditProfileForm
 from ...models import User
 from flask_login import login_required, login_user, current_user, logout_user
 from .import bp as auth
+import requests
 
 @auth.route("/register", methods=["GET", "POST"])
 def register():
@@ -12,10 +13,16 @@ def register():
             new_user_data = {
                 "first_name": form.first_name.data.title(),
                 "last_name": form.last_name.data.title(),
+                "fav_pokemon": form.fav_pokemon.data.lower(),
                 "email": form.email.data.lower(),
                 "password": form.password.data,
-                "icon": form.icon.data,
             }
+            fav_poke_response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{form.fav_pokemon.data}")
+            fav_poke_image = fav_poke_response.json()
+            if form.icon.data == "use_fav":
+                new_user_data["icon"] = fav_poke_image["sprites"]["other"]["home"]["front_default"]  
+            else:
+                new_user_data["icon"] = form.icon.data
             new_user_object = User()
             new_user_object.form_to_db(new_user_data)
             new_user_object.save()
@@ -48,10 +55,18 @@ def edit_profile():
         new_user_data = {
             "first_name": form.first_name.data.title(),
             "last_name": form.last_name.data.title(),
+            "fav_pokemon": form.fav_pokemon.data.lower(),
             "email": form.email.data.lower(),
             "password": form.password.data,
-            "icon": int(form.icon.data) if int(form.icon.data) != 9000 else current_user.icon,
         }
+        fav_poke_response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{new_user_data['fav_pokemon']}")
+        fav_poke_image = fav_poke_response.json()
+        if form.icon.data == "use_fav":
+            new_user_data["icon"] = fav_poke_image["sprites"]["other"]["home"]["front_default"]  
+        elif int(form.icon.data) == 9000:
+            new_user_data["icon"] = current_user.icon
+        else:
+            new_user_data["icon"] = form.icon.data
         user = User.query.filter_by(email=new_user_data["email"]).first()
         if user and user.email != current_user.email:
             flash("Email is already in use.", "danger")

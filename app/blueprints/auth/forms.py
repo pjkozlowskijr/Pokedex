@@ -8,6 +8,7 @@ from jinja2.utils import markupsafe
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])
+    fav_pokemon = StringField("Favorite Pok\u00e9mon", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email format.")])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password", message="Passwords must match.")])
@@ -23,7 +24,8 @@ class RegisterForm(FlaskForm):
     av3_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av3}.svg' height='100px'")
     av4_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av4}.svg' height='100px'")
 
-    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
+    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img), ("use_fav", "Use Favorite Pok\u00e9mon")])
+
 
     def validate_email(form, field):
         email_already_used = User.query.filter_by(email=field.data).first()
@@ -38,10 +40,11 @@ class LoginForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired(), Email()])
+    fav_pokemon = StringField("Favorite Pok\u00e9mon", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired(), Email(message="Invalid email format.")])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo("password", message="Passwords must match.")])
-    submit = SubmitField("Register")
+    submit = SubmitField("Update")
 
     av1 = random.randint(1, 1000)
     av2 = random.randint(1001, 2000)
@@ -53,4 +56,4 @@ class EditProfileForm(FlaskForm):
     av3_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av3}.svg' height='100px'")
     av4_img = markupsafe.Markup(f"<img src='https://avatars.dicebear.com/api/bottts/{av4}.svg' height='100px'")
 
-    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(9000, "Keep Avatar"), (av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img)])
+    icon = RadioField("Select Avatar:", validators=[DataRequired()], choices = [(9000, "Keep Avatar"), (av1, av1_img), (av2, av2_img), (av3, av3_img), (av4, av4_img), ("use_fav", "Use Favorite Pok\u00e9mon")])

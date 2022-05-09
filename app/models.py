@@ -2,15 +2,17 @@ from app import db, login
 from flask_login import UserMixin
 from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
+import re
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
+    fav_pokemon = db.Column(db.String)
     email = db.Column(db.String, unique=True, index=True)
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
-    icon = db.Column(db.Integer)
+    icon = db.Column(db.String)
 
     def __repr__(self):
         return f"<User: {self.email} | {self.user_id}"
@@ -27,6 +29,7 @@ class User(UserMixin, db.Model):
     def form_to_db(self, data):
         self.first_name = data["first_name"]
         self.last_name = data["last_name"]
+        self.fav_pokemon = data["fav_pokemon"]
         self.email = data["email"]
         self.password = self.hash_password(data["password"])
         self.icon = data["icon"]
@@ -36,7 +39,11 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def get_icon_url(self):
-        return f"https://avatars.dicebear.com/api/bottts/{self.icon}.svg"
+        search = re.search("^[0-9]", self.icon)
+        if search:
+            icon = int(self.icon)
+            return f"https://avatars.dicebear.com/api/bottts/{icon}.svg"
+        return self.icon
 
 @login.user_loader
 def load_user(user_id):
