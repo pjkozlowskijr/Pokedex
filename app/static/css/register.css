@@ -5,11 +5,10 @@
 
 #reg_form .form-label{
     margin: 0;
-    font-size: 24px;
     color: rgb(223, 222, 195);
 }
 
-#reg_form .form-control{
+.form_lines{
     margin-bottom: 3vh;
     font-size: 24px;
 }
@@ -35,6 +34,7 @@ p{
 .btn{
     background-color: rgb(58, 61, 56);
     color: rgb(223, 222, 195);
+    font-size: 24px;
 }
 
 .col{
@@ -48,4 +48,8 @@ hr{
 
 .btn:hover{
     color: rgb(86, 115, 130)
+}
+
+small{
+    color: red;
 }
