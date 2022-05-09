@@ -29,7 +29,7 @@ class User(UserMixin, db.Model):
     def form_to_db(self, data):
         self.first_name = data["first_name"]
         self.last_name = data["last_name"]
-        self.fav_pokemon = data["fav_pokemon"]
+        self.fav_pokemon = data["fav_pokemon"].title()
         self.email = data["email"]
         self.password = self.hash_password(data["password"])
         self.icon = data["icon"]
