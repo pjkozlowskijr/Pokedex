@@ -84,9 +84,9 @@ class Pokemon(db.Model):
     name = db.Column(db.String)
     poke_id_num = db.Column(db.Integer)
     # in total inches (convert later)
-    height = db.Column(db.Integer)
+    height = db.Column(db.String)
     # in pounds
-    weight = db.Column(db.Integer)
+    weight = db.Column(db.String)
     sprite = db.Column(db.String)
     base_exp = db.Column(db.Integer)
     ability = db.Column(db.String)
@@ -102,13 +102,13 @@ class Pokemon(db.Model):
         return user_poke.filter(user_poke.poke_id == self.id).first()
 
     def poke_to_db(self, poke_dict):
-            self.name = poke_dict["name"]
+            self.name = poke_dict["name"].title()
             self.poke_id_num = poke_dict["id"]
             self.height = poke_dict["height"]
             self.weight = poke_dict["weight"]
             self.sprite = poke_dict["sprite"]
             self.base_exp = poke_dict["base_experience"]
-            self.ability = poke_dict["ability_name"]
+            self.ability = poke_dict["ability_name"].title()
             self.attack_base = poke_dict["attack_base"]
             self.hp_base = poke_dict["hp_base"]
             self.defense_base = poke_dict["defense_base"]
