@@ -1,9 +1,9 @@
-from flask import render_template, request, flash
+from flask import redirect, render_template, request, flash, url_for
 import requests
 from .forms import PokeLookupForm
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .import bp as main
-from ...models import Pokemon
+from ...models import Pokemon, User
 
 @main.route("/", methods=["GET"])
 def index():
@@ -64,3 +64,20 @@ def lookup():
             pokemon_dict = Pokemon.query.filter_by(name=pokemon).first()
             return render_template("lookup.html.j2", pokemon_table=pokemon_dict, form=form)
     return render_template("lookup.html.j2", form=form)
+
+@main.route("/collect/<string:name>")
+@login_required
+def collect(name):
+    poke = Pokemon().query.filter_by(name=name).first()
+    if not current_user.check_user_has_poke(poke) and current_user.pokemon.count() < 5:
+        current_user.add_poke(poke)
+        flash(f"{poke.name.title()} was added to your collection.", "success")
+        return redirect(url_for("main.index"))
+    elif current_user.check_user_has_poke(poke):
+        flash("You already have this pokemon in your collection.", "danger")
+        return redirect(url_for("main.lookup"))
+    elif current_user.pokemon.count() == 5:
+        flash("You already have 5 pokemon in your collection. Please remove a pokemon before adding.", "danger")
+        return redirect(url_for("main.lookup"))
+    flash("There was an unexpected error.")
+    return redirect(url_for("main.lookup"))

@@ -29,6 +29,9 @@ p{
     padding-bottom: 8px;
     color: rgb(206, 212, 218);
     line-height: 1em;
+}
+
+#card_title{
     background-color: rgb(101, 85, 96);
 }
 

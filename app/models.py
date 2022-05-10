@@ -58,7 +58,7 @@ class User(UserMixin, db.Model):
         return self.icon
 
     def check_user_has_poke(self, poke_to_check):
-        return self.pokemon.filter(user_poke.c.poke_id == poke_to_check.id).count()>0
+        return poke_to_check in self.pokemon
     
     def add_poke(self, poke_to_add):
         if not self.check_user_has_poke(poke_to_add):
