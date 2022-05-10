@@ -3,6 +3,7 @@ import requests
 from .forms import PokeLookupForm
 from flask_login import login_required
 from .import bp as main
+from ...models import Pokemon
 
 @main.route("/", methods=["GET"])
 def index():
@@ -54,5 +55,9 @@ def lookup():
             habitat_list = [y["name"] for y in habitat["pokemon_species"]]
             if pokemon_dict["name"] in habitat_list:
                 pokemon_dict["habitat"] = habitat["name"]
+        new_poke = Pokemon()
+        if not new_poke.check_poke_collected:
+            new_poke.poke_to_db(pokemon_dict)
+            new_poke.save_poke()
         return render_template("lookup.html.j2", pokemon_table=pokemon_dict, form=form)
     return render_template("lookup.html.j2", form=form)

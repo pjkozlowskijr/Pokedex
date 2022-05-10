@@ -99,7 +99,19 @@ class Pokemon(db.Model):
         return f"<Pokemon: {self.id} | {self.name}>"
 
     def check_poke_collected(self):
-        return User.pokemon.filter(user_poke.c.poke_id == self.id).count()
+        return user_poke.filter(user_poke.poke_id == self.id).first()
+
+    def poke_to_db(self, poke_dict):
+            self.name = poke_dict["name"]
+            self.poke_id_num = poke_dict["id"]
+            self.height = poke_dict["height"]
+            self.weight = poke_dict["weight"]
+            self.sprite = poke_dict["sprite"]
+            self.base_exp = poke_dict["base_experience"]
+            self.ability = poke_dict["ability_name"]
+            self.attack_base = poke_dict["attack_base"]
+            self.hp_base = poke_dict["hp_base"]
+            self.defense_base = poke_dict["defense_base"]
 
     def save_poke(self):
         db.session.add(self)
