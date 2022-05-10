@@ -1,3 +1,4 @@
+from enum import unique
 from app import db, login
 from flask_login import UserMixin
 from datetime import datetime as dt
@@ -21,12 +22,12 @@ class User(UserMixin, db.Model):
     pokemon = db.relationship(
         "Pokemon",
         secondary=user_poke,
-        backref=db.backref("user", lazy="dynamic"), 
-        lazy="dynamic"
+        backref="user_poke",
+        lazy="dynamic",
         )
 
     def __repr__(self):
-        return f"<User: {self.email} | {self.user_id}"
+        return f"<User: {self.email} | {self.id}"
 
     def __str__(self):
         return f"<User: {self.email} | {self.first_name} {self.last_name}"
@@ -57,7 +58,7 @@ class User(UserMixin, db.Model):
         return self.icon
 
     def check_user_has_poke(self, poke_to_check):
-        return self.pokemon.filter(user_poke.c.poke_id == poke_to_check).count()
+        return self.pokemon.filter(user_poke.c.poke_id == poke_to_check.id).count()>0
     
     def add_poke(self, poke_to_add):
         if not self.check_user_has_poke(poke_to_add):
@@ -72,7 +73,7 @@ class User(UserMixin, db.Model):
     def show_pokemon(self):
         self_pokemon = self.pokemon
         collected = Pokemon.query.join(user_poke, (Pokemon.user_id == user_poke.c.user_id)).filter(user_poke.c.poke_id == self.id)
-        user_pokemon = collected.union(self_pokemon)
+        user_pokemon = collected.union(self_pokemon).order_by(Pokemon.name)
         return user_pokemon
 
 @login.user_loader
@@ -81,37 +82,40 @@ def load_user(user_id):
 
 class Pokemon(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, index=True, unique=True)
     poke_id_num = db.Column(db.Integer)
-    # in total inches (convert later)
     height = db.Column(db.String)
-    # in pounds
     weight = db.Column(db.String)
     sprite = db.Column(db.String)
-    base_exp = db.Column(db.Integer)
-    ability = db.Column(db.String)
+    base_experience = db.Column(db.Integer)
+    ability_name = db.Column(db.String)
     attack_base = db.Column(db.Integer)
     hp_base = db.Column(db.Integer)
     defense_base = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    gender = db.Column(db.String)
+    habitat = db.Column(db.String)
 
     def __repr__(self):
         return f"<Pokemon: {self.id} | {self.name}>"
 
-    def check_poke_collected(self):
-        return user_poke.filter(user_poke.poke_id == self.id).first()
+    @classmethod
+    def is_poke_in_db(cls, name):
+        return Pokemon.query.filter_by(name=name).count()>0
+        # return self.query.get(user_poke, (self.user_id == user_poke.c.user_id)).filter(user_poke.c.poke_id == self.id).first()
 
     def poke_to_db(self, poke_dict):
-            self.name = poke_dict["name"].title()
-            self.poke_id_num = poke_dict["id"]
-            self.height = poke_dict["height"]
-            self.weight = poke_dict["weight"]
-            self.sprite = poke_dict["sprite"]
-            self.base_exp = poke_dict["base_experience"]
-            self.ability = poke_dict["ability_name"].title()
-            self.attack_base = poke_dict["attack_base"]
-            self.hp_base = poke_dict["hp_base"]
-            self.defense_base = poke_dict["defense_base"]
+        self.name = poke_dict["name"]
+        self.poke_id_num = poke_dict["poke_id_num"]
+        self.height = poke_dict["height"]
+        self.weight = poke_dict["weight"]
+        self.sprite = poke_dict["sprite"]
+        self.base_experience = poke_dict["base_experience"]
+        self.ability_name = poke_dict["ability_name"]
+        self.attack_base = poke_dict["attack_base"]
+        self.hp_base = poke_dict["hp_base"]
+        self.defense_base = poke_dict["defense_base"]
+        self.gender = poke_dict["gender"]
+        self.habitat = poke_dict["habitat"]
 
     def save_poke(self):
         db.session.add(self)
