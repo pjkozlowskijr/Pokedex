@@ -4,6 +4,11 @@ from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
 
+user_poke = db.Table("user_poke",
+    db.Column("poke_id", db.Integer, db.ForeignKey("pokemon.id")),
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
+)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
@@ -13,6 +18,12 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String)
     created_on = db.Column(db.DateTime, default=dt.utcnow)
     icon = db.Column(db.String)
+    pokemon = db.relationship(
+        "Pokemon",
+        secondary=user_poke,
+        backref=db.backref("user", lazy="dynamic"), 
+        lazy="dynamic"
+        )
 
     def __repr__(self):
         return f"<User: {self.email} | {self.user_id}"
@@ -45,6 +56,51 @@ class User(UserMixin, db.Model):
             return f"https://avatars.dicebear.com/api/bottts/{icon}.svg"
         return self.icon
 
+    def check_user_has_poke(self, poke_to_check):
+        return self.pokemon.filter(user_poke.c.poke_id == poke_to_check).count()
+    
+    def add_poke(self, poke_to_add):
+        if not self.check_user_has_poke(poke_to_add):
+            self.pokemon.append(poke_to_add)
+            db.session.commit()
+
+    def del_poke(self, poke_to_del):
+        if self.check_user_has_poke(poke_to_del):
+            self.pokemon.remove(poke_to_del)
+            db.session.commit()
+
+    def show_pokemon(self):
+        self_pokemon = self.pokemon
+        collected = Pokemon.query.join(user_poke, (Pokemon.user_id == user_poke.c.user_id)).filter(user_poke.c.poke_id == self.id)
+        user_pokemon = collected.union(self_pokemon)
+        return user_pokemon
+
 @login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class Pokemon(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    poke_id_num = db.Column(db.Integer)
+    # in total inches (convert later)
+    height = db.Column(db.Integer)
+    # in pounds
+    weight = db.Column(db.Integer)
+    sprite = db.Column(db.String)
+    base_exp = db.Column(db.Integer)
+    ability = db.Column(db.String)
+    attack_base = db.Column(db.Integer)
+    hp_base = db.Column(db.Integer)
+    defense_base = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+    def __repr__(self):
+        return f"<Pokemon: {self.id} | {self.name}>"
+
+    def check_poke_collected(self):
+        return User.pokemon.filter(user_poke.c.poke_id == self.id).count()
+
+    def save_poke(self):
+        db.session.add(self)
+        db.session.commit()
