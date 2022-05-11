@@ -11,10 +11,11 @@
             {% if current_user.is_authenticated %}
                 <div class="navbar-nav me-auto">
                     <a class="nav-link" href="{{url_for('main.index')}}">Home&nbsp;<i class="bi bi-house-door-fill"></i></a>
-                    <a class="nav-link" href="{{url_for('main.lookup')}}">Find Pok&eacute;mon&nbsp;<i class="bi bi-binoculars-fill"></i></a>
+                    <a class="nav-link" href="{{url_for('main.lookup')}}">Catch'Em&nbsp;<i class="bi bi-binoculars-fill"></i></a>
                     {% if current_user.pokemon %}
-                    <a class="nav-link" href="{{url_for('main.view_collection')}}">View Collection&nbsp;<i class="bi bi-collection"></i></a>
+                    <a class="nav-link" href="{{url_for('main.view_collection')}}">Your Pok&eacute;mon&nbsp;<i class="bi bi-collection"></i></a>
                     {% endif %}
+                    <a class="nav-link" href="{{url_for('main.view_users')}}">Pok&eacute;masters&nbsp;<i class="bi bi-people"></i></a>
                 </div>
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link" href="{{url_for('auth.edit_profile')}}">Profile&nbsp;<img src="{{current_user.get_icon_url()}}" style="height: 26px" class="align-text-bottom"></a>

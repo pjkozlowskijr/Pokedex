@@ -34,7 +34,7 @@ Lookup
         <div class="card-title px-4 py-0 d-flex justify-content-between align-items-center">
             <h2 id="card_header">{{pokemon_table.name.title()}} - #{{pokemon_table.poke_id_num}}</h2>
             {% if not current_user.check_user_has_poke(pokemon_table) and current_user.pokemon.count() < 5 %}
-                <a class="btn" href="{{url_for('main.collect', name=pokemon_table.name)}}">Catch&nbsp;<i class="bi bi-file-plus"></i></a>
+                <a class="btn" href="{{url_for('main.catch', name=pokemon_table.name)}}">Catch&nbsp;<i class="bi bi-file-plus"></i></a>
             {% elif current_user.check_user_has_poke(pokemon_table) %}
                 <a class="btn" href="{{url_for('main.release', name=pokemon_table.name)}}">Release&nbsp;<i class="bi bi-file-minus"></i></a>
             {% endif %}

@@ -5,32 +5,11 @@ h1{
     color: rgb(223, 222, 195);
 }
 
-p{
-    font-size: 18px;
-    text-align: center;
-    font-style: italic;
-    color: rgb(223, 222, 195);
-}
-
-hr{
-    color: rgb(223, 222, 195);
-}
-
-#lookup_form{
-    width: 50vw;
-    margin: auto;
-}
-
-.form-label{
-    font-size: 24px;
-    margin: 0;
-    color: rgb(223, 222, 195);
-}
-
 .btn{
     background-color: rgb(58, 61, 56);
     color: rgb(223, 222, 195);
     font-size: 24px;
+    margin: auto;
 }
 
 .btn:hover{
@@ -41,6 +20,7 @@ hr{
     width: 50vw;
     margin: auto;
     margin-top: 25px;
+    margin-bottom: 5vh;
     border: 3px solid rgb(58, 61, 56);
     box-shadow: 10px 7px rgb(43, 43, 43);
     background-color: rgb(206, 212, 218);
@@ -48,8 +28,6 @@ hr{
 
 .card-title{
     margin: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
     color: rgb(206, 212, 218);
     background-color: rgb(101, 85, 96);
 }
@@ -57,11 +35,6 @@ hr{
 #card_header{
     font-size: 56px;
     margin-bottom: 0;
-}
-
-.card-title a{
-    padding-top: 0;
-    padding-bottom: 0;
 }
 
 .bi{
@@ -78,12 +51,8 @@ hr{
     color: rgb(101, 85, 96);
 }
 
-#phys th{
-    width: 9vw;
-}
-
 #stats th{
-    width: 13vw;
+    width: 9vw;
 }
 
 #stats_head{
@@ -97,7 +66,17 @@ hr{
 }
 
 .img-fluid{
+    height: 56px;
+}
+
+#pokemasters{
+    width: 65vw;
     margin: auto;
-    padding-left: 12px;
-    padding-bottom: 12px;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    width: 100px;
+    height: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
 }

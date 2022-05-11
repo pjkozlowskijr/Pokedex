@@ -1,0 +1,33 @@
+{% extends "base.html.j2" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/view_users.css')}}">
+{% endblock %}
+
+{% block title %}
+Pok&eacute;masters
+{% endblock %}
+
+{% block content %}
+    <h1>Pok&eacute;masters</h1>
+    <div id="pokemasters" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
+        <div class="carousel-inner">
+            {% for user in users[0:1] %}
+                <div class="carousel-item active">
+                    {% include "./includes/user_card.html.j2"%}
+                </div>
+            {% endfor %}
+            {% for user in users[1:] %}
+                <div class="carousel-item">
+                    {% include "./includes/user_card.html.j2"%}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#pokemasters" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#pokemasters" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+{% endblock %}

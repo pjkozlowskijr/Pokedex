@@ -9,7 +9,7 @@ body{
 }
 
 .navbar-brand{
-    font-size: 32px;
+    font-size: 24px;
     padding: 0;
     margin-right: 32px;
 }
@@ -31,4 +31,8 @@ body{
 .container{
     margin-top: 3vh;
     margin-bottom: 3vh;
+}
+
+.bi{
+    vertical-align: middle;
 }
