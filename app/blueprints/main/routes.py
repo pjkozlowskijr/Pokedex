@@ -92,3 +92,11 @@ def release(name):
         return redirect(url_for("main.index"))
     flash("You cannot release a Pokemon that is not in your collection.")
     return redirect(url_for("main.lookup"))
+
+@main.route("/view_collection")
+@login_required
+def view_collection():
+    if current_user.pokemon:
+        return render_template("view_collection.html.j2", pokemon=current_user.pokemon)
+    flash("You must add Pokemon to view your collection.")
+    return redirect(url_for("main.lookup"))

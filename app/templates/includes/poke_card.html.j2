@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-title px-4 py-0 d-flex justify-content-between align-items-center">
+        <h2 id="card_header">{{pokemon_table.name.title()}} - #{{pokemon_table.poke_id_num}}</h2>
+        {% if not current_user.check_user_has_poke(pokemon_table) and current_user.pokemon.count() < 5 %}
+            <a class="btn" href="{{url_for('main.collect', name=pokemon_table.name)}}">Catch&nbsp;<i class="bi bi-file-plus"></i></a>
+        {% elif current_user.check_user_has_poke(pokemon_table) %}
+            <a class="btn" href="{{url_for('main.release', name=pokemon_table.name)}}">Release&nbsp;<i class="bi bi-file-minus"></i></a>
+        {% endif %}
+    </div>
+    <div class="row g-0 align-items-center">
+        <div class="col-md mx-4 mt-2">
+            <table id="phys" class="table table-sm table-borderless align-middle">
+                <tr>
+                    <th scope="row">Habitat</th>
+                    <td>{{pokemon_table.habitat.title()}}</td>
+                    <th scope="row">Height</th>
+                    <td>{{pokemon_table.height}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Gender</th>
+                    <td>{{pokemon_table.gender}}</td>
+                    <th scope="row">Weight</th>
+                    <td>{{pokemon_table.weight}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row g-0 align-items-center">
+        <div class="col-md-5">
+            <img src="{{pokemon_table.sprite}}" class="img-fluid d-block mx-auto" alt="Picture of {{pokemon_table.name}}.">
+        </div>
+        <div class="col-md-7">
+            <div class="card-body pt-0">
+                <table id="stats" class="table table-sm table-borderless align-middle">
+                    <tr>
+                        <th id="stats_head" colspan="2">Stats</th>
+                    </tr>
+                    <tr>
+                        <th>Base Experience</th>
+                        <td>{{pokemon_table.base_experience}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Base HP</th>
+                        <td>{{pokemon_table.hp_base}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Base Attack</th>
+                        <td>{{pokemon_table.attack_base}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Base Defense</th>
+                        <td>{{pokemon_table.defense_base}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Ability</th>
+                        <td>{{(pokemon_table.ability_name).title()}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

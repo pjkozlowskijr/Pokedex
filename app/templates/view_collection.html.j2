@@ -1,0 +1,55 @@
+{% extends "base.html.j2" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/view_collection.css')}}">
+{% endblock %}
+
+{% block title %}
+    {{current_user.first_name}}'s Poke&eacute;mon
+{% endblock %}
+
+{% block content %}
+    <h1>{{current_user.first_name}}'s Pok&eacute;mon Collection</h1>
+    <div id="poke_collection" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            {% if pokemon[1] %}
+            <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            {% endif %}
+            {% if pokemon[2] %}
+            <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            {% endif %}
+            {% if pokemon[3] %}
+            <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            {% endif %}
+            {% if pokemon[4] %}
+            <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            {% endif %}
+        </div>
+        <div class="carousel-inner">
+            {% for pokemon_table in pokemon[0:1] %}
+                <div class="carousel-item active">
+                    {% include "./includes/poke_card.html.j2"%}
+                </div>
+            {% endfor %}
+            {% for pokemon_table in pokemon[1:] %}
+                <div class="carousel-item">
+                    {% include "./includes/poke_card.html.j2"%}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#poke_collection" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#poke_collection" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+
+
+
+
+
+
+
+{% endblock %}
