@@ -96,9 +96,9 @@ def release(name):
 @main.route("/view_collection")
 @login_required
 def view_collection():
-    if current_user.pokemon:
-        return render_template("view_collection.html.j2", pokemon=current_user.pokemon)
-    flash("You must add Pokemon to view your collection.")
+    if current_user.pokemon.count() > 0:
+        return render_template("view_collection.html.j2", pokemon=current_user.pokemon, user=current_user)
+    flash("You must add Pokemon to view your collection.", "danger")
     return redirect(url_for("main.lookup"))
 
 @main.route("/view_users")
@@ -112,6 +112,6 @@ def view_users():
 def view_user_pokemon(id):
     user = User.query.get(id)
     if user.pokemon:
-        return render_template("view_collection.html.j2", pokemon=user.pokemon)
+        return render_template("view_collection.html.j2", pokemon=user.pokemon, user=user)
     flash("This user has not caught any Pokemon to view.")
     return redirect(url_for("main.view_users"))

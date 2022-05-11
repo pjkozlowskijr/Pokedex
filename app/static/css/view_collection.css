@@ -15,6 +15,16 @@ h1{
     color: rgb(86, 115, 130)
 }
 
+#battle_button{
+    width: 50vw;
+    margin: auto;
+    margin-top: 12px;
+}
+
+#battle_button a{
+    width: 50vw;
+}
+
 .card{
     width: 50vw;
     margin: auto;

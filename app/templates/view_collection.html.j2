@@ -5,11 +5,25 @@
 {% endblock %}
 
 {% block title %}
-    {{current_user.first_name}}'s Poke&eacute;mon
+    {% if current_user %}
+        {{current_user.first_name}}'s Poke&eacute;mon
+    {% else %}
+        {{user.first_name}}'s Poke&eacute;mon
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-    <h1>{{current_user.first_name}}'s Pok&eacute;mon Collection</h1>
+    {% if current_user %}
+        <h1>{{current_user.first_name}}'s Pok&eacute;mon Collection</h1>
+    {% else %}
+        <h1>{{user.first_name}}'s Pok&eacute;mon Collection</h1>
+    {% endif %}
+
+    {% if user != current_user %}
+        <div id="battle_button">
+            <a class="btn" href="#">Battle {{user.first_name.title()}}&nbsp;<i class="bi bi-controller"></i></a>
+        </div>
+    {% endif %}
     <div id="poke_collection" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#poke_collection" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
