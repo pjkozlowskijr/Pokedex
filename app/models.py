@@ -121,3 +121,17 @@ class Pokemon(db.Model):
     def save_poke(self):
         db.session.add(self)
         db.session.commit()
+
+class Battle:
+    def __init__(self):
+        self.user_battle_list = []
+        self.opp_battle_list = []
+        self.results = []
+
+    def check_opp_hp(self, poke):
+        if poke["hp"] == 0:
+            self.opp_battle_list.remove(poke)
+            result = f"{poke['name'].title()} has been eliminated."
+            self.results.append(result)
+            return True
+    
