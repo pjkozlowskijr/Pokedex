@@ -31,11 +31,12 @@ Lookup
 
 {% if pokemon_table %}
     <div class="card">
-        <div id="card_title" class="d-flex justify-content-between align-items-center">
-            <h2 class="card-title">{{pokemon_table.name.title()}} - #{{pokemon_table.poke_id_num}}</h2>
-            <a href="{{url_for('main.collect', name=pokemon_table.name)}}"><i class="bi bi-plus-square"></i></a>
+        <div class="card-title px-4 py-0 d-flex justify-content-between align-items-center">
+            <h2 id="card_header">{{pokemon_table.name.title()}} - #{{pokemon_table.poke_id_num}}</h2>
             {% if not current_user.check_user_has_poke(pokemon_table) and current_user.pokemon.count() < 5 %}
-            
+                <a class="btn" href="{{url_for('main.collect', name=pokemon_table.name)}}">Catch&nbsp;<i class="bi bi-file-plus"></i></a>
+            {% elif current_user.check_user_has_poke(pokemon_table) %}
+                <a class="btn" href="{{url_for('main.release', name=pokemon_table.name)}}">Release&nbsp;<i class="bi bi-file-minus"></i></a>
             {% endif %}
         </div>
         <div class="row g-0 align-items-center">

@@ -12,27 +12,8 @@ p{
     color: rgb(223, 222, 195);
 }
 
-.card{
-    width: 50vw;
-    margin: auto;
-    margin-top: 25px;
-    border: 3px solid rgb(58, 61, 56);
-    box-shadow: 10px 7px rgb(58, 61, 56);
-    background-color: rgb(206, 212, 218);
-}
-
-.card-title{
-    font-size: 56px;
-    text-align: center;
-    margin: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    color: rgb(206, 212, 218);
-    line-height: 1em;
-}
-
-#card_title{
-    background-color: rgb(101, 85, 96);
+hr{
+    color: rgb(223, 222, 195);
 }
 
 #lookup_form{
@@ -46,8 +27,45 @@ p{
     color: rgb(223, 222, 195);
 }
 
-.form-control{
+.btn{
+    background-color: rgb(58, 61, 56);
+    color: rgb(223, 222, 195);
     font-size: 24px;
+}
+
+.btn:hover{
+    color: rgb(86, 115, 130)
+}
+
+.card{
+    width: 50vw;
+    margin: auto;
+    margin-top: 25px;
+    border: 3px solid rgb(58, 61, 56);
+    box-shadow: 10px 7px rgb(58, 61, 56);
+    background-color: rgb(206, 212, 218);
+}
+
+.card-title{
+    margin: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: rgb(206, 212, 218);
+    background-color: rgb(101, 85, 96);
+}
+
+#card_header{
+    font-size: 56px;
+    margin-bottom: 0;
+}
+
+.card-title a{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.bi{
+    vertical-align: middle;
 }
 
 .table{
@@ -74,11 +92,6 @@ p{
     text-align: center;
 }
 
-.btn{
-    background-color: rgb(58, 61, 56);
-    color: rgb(223, 222, 195);
-}
-
 .img-fluid{
     margin: auto;
     padding-left: 12px;
@@ -87,12 +100,4 @@ p{
 
 .card-body{
     padding: 12px;
-}
-
-hr{
-    color: rgb(223, 222, 195);
-}
-
-.btn:hover{
-    color: rgb(86, 115, 130)
 }

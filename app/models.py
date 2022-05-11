@@ -60,15 +60,13 @@ class User(UserMixin, db.Model):
     def check_user_has_poke(self, poke_to_check):
         return poke_to_check in self.pokemon
     
-    def add_poke(self, poke_to_add):
-        if not self.check_user_has_poke(poke_to_add):
-            self.pokemon.append(poke_to_add)
-            db.session.commit()
+    def catch_poke(self, poke_to_catch):
+        self.pokemon.append(poke_to_catch)
+        db.session.commit()
 
-    def del_poke(self, poke_to_del):
-        if self.check_user_has_poke(poke_to_del):
-            self.pokemon.remove(poke_to_del)
-            db.session.commit()
+    def release_poke(self, poke_to_rel):
+        self.pokemon.remove(poke_to_rel)
+        db.session.commit()
 
     def show_pokemon(self):
         self_pokemon = self.pokemon

@@ -65,12 +65,12 @@ def lookup():
             return render_template("lookup.html.j2", pokemon_table=pokemon_dict, form=form)
     return render_template("lookup.html.j2", form=form)
 
-@main.route("/collect/<string:name>")
+@main.route("/catch/<string:name>")
 @login_required
-def collect(name):
+def catch(name):
     poke = Pokemon().query.filter_by(name=name).first()
     if not current_user.check_user_has_poke(poke) and current_user.pokemon.count() < 5:
-        current_user.add_poke(poke)
+        current_user.catch_poke(poke)
         flash(f"{poke.name.title()} was added to your collection.", "success")
         return redirect(url_for("main.index"))
     elif current_user.check_user_has_poke(poke):
@@ -80,4 +80,15 @@ def collect(name):
         flash("You already have 5 pokemon in your collection. Please remove a pokemon before adding.", "danger")
         return redirect(url_for("main.lookup"))
     flash("There was an unexpected error.")
+    return redirect(url_for("main.lookup"))
+
+@main.route("/release/<string:name>")
+@login_required
+def release(name):
+    poke = Pokemon().query.filter_by(name=name).first()
+    if current_user.check_user_has_poke(poke):
+        current_user.release_poke(poke)
+        flash(f"You released {poke.name.title()}.", "success")
+        return redirect(url_for("main.index"))
+    flash("You cannot release a Pokemon that is not in your collection.")
     return redirect(url_for("main.lookup"))
