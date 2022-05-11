@@ -5,19 +5,11 @@
 {% endblock %}
 
 {% block title %}
-    {% if current_user %}
-        {{current_user.first_name}}'s Poke&eacute;mon
-    {% else %}
         {{user.first_name}}'s Poke&eacute;mon
-    {% endif %}
 {% endblock %}
 
 {% block content %}
-    {% if current_user %}
-        <h1>{{current_user.first_name}}'s Pok&eacute;mon Collection</h1>
-    {% else %}
-        <h1>{{user.first_name}}'s Pok&eacute;mon Collection</h1>
-    {% endif %}
+    <h1>{{user.first_name}}'s Pok&eacute;mon Collection</h1>
 
     {% if user != current_user %}
         <div id="battle_button">

@@ -9,7 +9,7 @@
                 <tr>
                     <th scope="row">Battles:</th>
                     <td>{{user.battles}}</td>
-                    <th scope="row">Wins:</th>
+                    <th scope="row"><i class="bi bi-trophy-fill"></i>&nbsp;Wins:</th>
                     <td>{{user.wins}}</td>
                     <th scope="row">Losses:</th>
                     <td>{{user.losses}}</td>
@@ -22,7 +22,7 @@
             <div class="card-body mx-auto pt-0">
                 <table id="user_pokemon" class="table table-sm table-borderless align-middle">
                     <tr>
-                        <th id="stats_head" colspan="1">{{user.first_name}}'s Pokemon</th>
+                        <th id="stats_head">Pok&eacute;mon Roster:</th>
                     </tr>
                     {% for pokemon_table in user.pokemon %}
                     <tr>

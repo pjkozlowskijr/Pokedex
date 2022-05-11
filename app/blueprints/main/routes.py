@@ -104,7 +104,7 @@ def view_collection():
 @main.route("/view_users")
 @login_required
 def view_users():
-    users = User.query.filter(User.id != current_user.id and User.pokemon).all()
+    users = User.query.filter(User.id != current_user.id, User.pokemon).all()
     return render_template("view_users.html.j2", users=users)
 
 @main.route("/view_user_pokemon/<int:id>")
