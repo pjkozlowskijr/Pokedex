@@ -19,7 +19,7 @@ def lookup():
             url_base = f"https://pokeapi.co/api/v2/pokemon/{pokemon}"
             response_base = requests.get(url_base)
             if not response_base.ok:
-                flash("There was an error, most likely because the Pokemon you entered does not exist. Please try again.", "danger")
+                flash("There was an error, most likely because the Pok\u00e9mon you entered does not exist. Please try again.", "danger")
                 return render_template("lookup.html.j2", form=form)
             if not response_base.json():
                 flash("There was an unexpected error. Please try again.", "danger")
@@ -74,10 +74,10 @@ def catch(name):
         flash(f"{poke.name.title()} was added to your collection.", "success")
         return redirect(url_for("main.view_collection"))
     elif current_user.check_user_has_poke(poke):
-        flash("You already have this pokemon in your collection.", "danger")
+        flash("You already have this Pok\u00e9mon in your collection.", "danger")
         return redirect(url_for("main.lookup"))
     elif current_user.pokemon.count() == 5:
-        flash("You already have 5 pokemon in your collection. Please remove a pokemon before adding.", "danger")
+        flash("You already have 5 Pok\u00e9mon in your collection. Please remove a Pok\u00e9mon before adding.", "danger")
         return redirect(url_for("main.view_collection"))
     flash("There was an unexpected error.")
     return redirect(url_for("main.lookup"))
@@ -90,7 +90,7 @@ def release(name):
         current_user.release_poke(poke)
         flash(f"You released {poke.name.title()}.", "success")
         return redirect(request.referrer or url_for("main.view_collection"))
-    flash("You cannot release a Pokemon that is not in your collection.")
+    flash("You cannot release a Pok\u00e9mon that is not in your collection.")
     return redirect(url_for("main.lookup"))
 
 @main.route("/view_collection")
@@ -98,7 +98,7 @@ def release(name):
 def view_collection():
     if current_user.pokemon.count() > 0:
         return render_template("view_collection.html.j2", pokemon=current_user.pokemon, user=current_user)
-    flash("You must add Pokemon to view your collection.", "danger")
+    flash("You must add Pok\u00e9mon to view your collection.", "danger")
     return redirect(url_for("main.lookup"))
 
 @main.route("/view_users")
@@ -113,5 +113,5 @@ def view_user_pokemon(id):
     user = User.query.get(id)
     if user.pokemon:
         return render_template("view_collection.html.j2", pokemon=user.pokemon, user=user)
-    flash("This user has not caught any Pokemon to view.")
+    flash("This user has not caught any Pok\u00e9mon to view.")
     return redirect(url_for("main.view_users"))

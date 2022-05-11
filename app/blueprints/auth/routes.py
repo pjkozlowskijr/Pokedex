@@ -29,7 +29,7 @@ def register():
         except:
             flash("There was an unexpected error creating your account. Please try again later.", "danger")
             return render_template("register.html.j2", form=form)
-        flash("You have successfully registered. Please login to use the Pokedex!", "success")
+        flash("You have successfully registered. Please login to use the Pok\u00e9dex!", "success")
         return redirect(url_for("auth.login"))
     return render_template("register.html.j2", form=form)
 
@@ -42,7 +42,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.confirm_password(password):
             login_user(user)
-            flash("Login successful. You may now use the Pokedex!", "success")
+            flash("Login successful. You may now use the Pok\u00e9dex!", "success")
             return redirect(url_for("main.index"))
         flash("Incorrect email or password.", "danger")
         return render_template("login.html.j2", form=form)
