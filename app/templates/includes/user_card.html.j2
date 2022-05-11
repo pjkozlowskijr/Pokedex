@@ -3,28 +3,26 @@
         <h2 id="card_header">{{user.first_name.title()}} {{user.last_name.title()}}</h2>
         <img src="{{user.get_icon_url()}}" class="img-fluid d-block" alt="User avatar.">
     </div>
-    {% if user.battles %}
     <div class="row g-0 align-items-center">
         <div class="col-md mx-4 mt-2">
             <table id="stats" class="table table-sm table-borderless align-middle">
                 <tr>
-                    <th scope="row"># Battles</th>
+                    <th scope="row">Battles:</th>
                     <td>{{user.battles}}</td>
-                    <th scope="row">Wins</th>
+                    <th scope="row">Wins:</th>
                     <td>{{user.wins}}</td>
-                    <th scope="row">Losses</th>
+                    <th scope="row">Losses:</th>
                     <td>{{user.losses}}</td>
                 </tr>
             </table>
         </div>
     </div>
-    {% endif%}
     <div class="row g-0 align-items-center">
-        <div class="col-md-7">
+        <div class="col-md-6">
             <div class="card-body mx-auto pt-0">
                 <table id="user_pokemon" class="table table-sm table-borderless align-middle">
                     <tr>
-                        <th id="stats_head" colspan="1">User's Pokemon</th>
+                        <th id="stats_head" colspan="1">{{user.first_name}}'s Pokemon</th>
                     </tr>
                     {% for pokemon_table in user.pokemon %}
                     <tr>
@@ -35,7 +33,7 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="row g-0 mx-4 my-4">
                 <a class="btn" href="{{url_for('main.view_user_pokemon', id=user.id)}}">Pok&eacute;mon Details&nbsp;<i class="bi bi-collection"></i></a>
             </div>

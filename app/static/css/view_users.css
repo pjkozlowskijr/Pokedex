@@ -52,7 +52,16 @@ h1{
 }
 
 #stats th{
-    width: 9vw;
+    width: 10vw;
+    text-align: right;
+}
+
+#stats td{
+    text-align: left;
+}
+
+#user_pokemon th, #user_pokemon td{
+    padding: 0;
 }
 
 #stats_head{

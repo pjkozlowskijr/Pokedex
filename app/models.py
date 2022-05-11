@@ -25,6 +25,9 @@ class User(UserMixin, db.Model):
         backref="user_poke",
         lazy="dynamic",
         )
+    battles = db.Column(db.Integer, default=0)
+    wins = db.Column(db.Integer, default=0)
+    losses = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f"<User: {self.email} | {self.id}"
