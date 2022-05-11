@@ -106,3 +106,12 @@ def view_collection():
 def view_users():
     users = User.query.filter(User.id != current_user.id and User.pokemon).all()
     return render_template("view_users.html.j2", users=users)
+
+@main.route("/view_user_pokemon/<int:id>")
+@login_required
+def view_user_pokemon(id):
+    user = User.query.get(id)
+    if user.pokemon:
+        return render_template("view_collection.html.j2", pokemon=user.pokemon)
+    flash("This user has not caught any Pokemon to view.")
+    return redirect(url_for("main.view_users"))
