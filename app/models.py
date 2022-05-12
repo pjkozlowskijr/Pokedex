@@ -181,8 +181,10 @@ class Battle:
             Battle.results.append(f"{Battle.user_squad[0]['owner'].upper()} WINS!!!")
             current_user.wins += 1
             current_user.battles += 1
+            current_user.save()
             opponent.losses += 1
             opponent.battles += 1
+            opponent.save()
             return False
 
     @classmethod
