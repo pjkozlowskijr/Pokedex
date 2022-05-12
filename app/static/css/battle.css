@@ -1,0 +1,26 @@
+h1{
+    font-size: 56px;
+    text-align: center;
+    margin: 0;
+    color: rgb(223, 222, 195);
+}
+
+hr{
+    color: rgb(223, 222, 195);
+}
+
+.btn{
+    background-color: rgb(58, 61, 56);
+    color: rgb(223, 222, 195);
+    font-size: 24px;
+    width: 100%;
+}
+
+#user_squad img, #opp_squad img{
+    height: 10vh;
+}
+
+#matchup img{
+    height: 20vh;
+    width: auto;
+}

@@ -188,7 +188,7 @@ class Battle:
     def check_opp_squad(cls, id):
         opponent = User.query.get(id)
         if not Battle.opp_squad:
-            Battle.results.append(f"{Battle.user_squad[0]['owner'].upper()} WINS!!!")
+            Battle.results.append(f"YOU WIN!!! Congratulations! You defeated {Battle.opp_squad[0]['owner'].upper()}.")
             current_user.wins += 1
             current_user.battles += 1
             current_user.save()
@@ -204,7 +204,7 @@ class Battle:
     def check_user_squad(cls, id):
         opponent = User.query.get(id)
         if not Battle.user_squad:
-            Battle.results.append(f"{Battle.opp_squad[0]['owner'].upper()} WINS!!!")
+            Battle.results.append(f"YOU LOSE!!! {Battle.opp_squad[0]['owner'].upper()} has defeated you. Better luck next time.")
             opponent.wins += 1
             opponent.battles += 1
             opponent.save()
