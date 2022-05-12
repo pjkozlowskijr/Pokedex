@@ -1,6 +1,5 @@
-from enum import unique
 from app import db, login
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from datetime import datetime as dt
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
@@ -123,15 +122,76 @@ class Pokemon(db.Model):
         db.session.commit()
 
 class Battle:
-    def __init__(self):
-        self.user_battle_list = []
-        self.opp_battle_list = []
-        self.results = []
-
-    def check_opp_hp(self, poke):
-        if poke["hp"] == 0:
-            self.opp_battle_list.remove(poke)
-            result = f"{poke['name'].title()} has been eliminated."
-            self.results.append(result)
-            return True
+    results = []
+    user_squad = []
+    opp_squad = []
     
+    @classmethod
+    def make_user_squad(cls):
+        for poke in current_user.pokemon:
+            poke_dict = {
+                "owner": current_user.first_name,
+                "name": poke.name,
+                "sprite": poke.sprite,
+                "hp": poke.hp_base,
+                "attack": poke.attack_base,
+                "defense": poke.defense_base,
+            }
+            Battle.user_squad.append(poke_dict)
+
+    @classmethod
+    def make_opp_squad(cls, opp):
+        for poke in opp.pokemon:
+            poke_dict = {
+                "owner": opp.first_name,
+                "name": poke.name,
+                "sprite": poke.sprite,
+                "hp": poke.hp_base,
+                "attack": poke.attack_base,
+                "defense": poke.defense_base,
+            }
+            Battle.opp_squad.append(poke_dict)
+
+    @classmethod
+    def attack_seq(cls):
+        while Battle.opp_squad[0]["hp"] > 0 or Battle.user_squad[0]["hp"] > 0:
+            if Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]) <= 0:
+                Battle.opp_squad[0]["hp"] = 0
+            else:
+                Battle.opp_squad[0]["hp"] = Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"])
+            Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s HP was reduced to {Battle.opp_squad[0]['hp']} from the attack by {Battle.user_squad[0]['name']}.")
+            if Battle.opp_squad[0]["hp"] == 0:
+                elim_poke = Battle.opp_squad.pop(0)
+                Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
+                break
+            if Battle.user_squad[0]["hp"] - (Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]) <= 0:
+                Battle.user_squad[0]["hp"] = 0
+            else:
+                Battle.user_squad[0]["hp"] = Battle.user_squad[0]["hp"] - (Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"])
+            Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['name']}.")
+            if Battle.user_squad[0]["hp"] == 0:
+                elim_poke = Battle.user_squad.pop(0)
+                Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
+                break
+
+    @classmethod
+    def check_opp_squad(cls, id):
+        opponent = User.query.get(id)
+        if not Battle.opp_squad:
+            Battle.results.append(f"{Battle.user_squad[0]['owner'].upper()} WINS!!!")
+            current_user.wins += 1
+            current_user.battles += 1
+            opponent.losses += 1
+            opponent.battles += 1
+            return False
+
+    @classmethod
+    def check_user_squad(cls, id):
+        opponent = User.query.get(id)
+        if not Battle.user_squad:
+            Battle.results.append(f"{Battle.opp_squad[0]['owner'].upper()} WINS!!!")
+            opponent.wins += 1
+            opponent.battles += 1
+            current_user.losses += 1
+            current_user.battles += 1
+            return False    

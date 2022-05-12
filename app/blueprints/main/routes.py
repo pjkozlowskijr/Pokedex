@@ -1,9 +1,9 @@
-from flask import redirect, render_template, request, flash, url_for
+from flask import redirect, render_template, request, flash, url_for, g
 import requests
 from .forms import PokeLookupForm
 from flask_login import login_required, current_user
 from .import bp as main
-from ...models import Pokemon, User
+from ...models import Pokemon, User, Battle
 
 @main.route("/", methods=["GET"])
 def index():
@@ -115,3 +115,20 @@ def view_user_pokemon(id):
         return render_template("view_collection.html.j2", pokemon=user.pokemon, user=user)
     flash("This user has not caught any Pok\u00e9mon to view.")
     return redirect(url_for("main.view_users"))
+
+@main.route("/start_battle/<int:id>")
+@login_required
+def start_battle(id):
+    opponent = User.query.get(id)
+    Battle.make_user_squad()
+    Battle.make_opp_squad(opponent)
+    return render_template("start_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent)
+
+@main.route("/launch_attack/<int:id>")
+@login_required
+def launch_attack(id):
+    opponent = User.query.get(id)
+    Battle.attack_seq()
+    if Battle.check_opp_squad(id) and Battle.check_opp_squad(id):
+        return render_template("continue_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent, results=Battle.results)
+    return render_template("continue_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent, results=Battle.results)

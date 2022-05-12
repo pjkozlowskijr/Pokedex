@@ -13,7 +13,7 @@
 
     {% if user != current_user %}
         <div id="battle_button">
-            <a class="btn" href="#">Battle {{user.first_name.title()}}&nbsp;<i class="bi bi-controller"></i></a>
+            <a class="btn" href="{{url_for('main.start_battle', id=user.id)}}">Battle {{user.first_name.title()}}&nbsp;<i class="bi bi-controller"></i></a>
         </div>
     {% endif %}
     <div id="poke_collection" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="false">

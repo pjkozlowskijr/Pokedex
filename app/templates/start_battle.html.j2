@@ -1,0 +1,87 @@
+{% extends "base.html.j2" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block title %}
+Battle
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1> Pok&eacute;mon Battleground</h1>
+        <hr>
+        <a class="btn" href="{{url_for('main.launch_attack', id=opponent.id)}}">Launch Attack<img class="bi" src="https://res.cloudinary.com/detcvmtip/image/upload/v1652327823/pokedex_images/attack1_zsxqgv.png"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <th>{{current_user.first_name.title()}}'s Squad</th>
+                </tr>
+                {% for poke in user_poke %}
+                <tr>
+                    <td colspan="3">{{poke["name"].title()}}</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."><td>
+                    <td>HP:</td>
+                    <td>{{poke["hp"]}}</td>
+                </tr>
+                <tr>
+                    <td>Attack:</td>
+                    <td>{{poke["attack"]}}</td>
+                </tr>
+                <tr>
+                    <td>Defense:</td>
+                    <td>{{poke["defense"]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <h2>{{current_user.first_name.title()}}</h2>
+                <img src="{{current_user.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+            </div>
+            <div class="row">
+                <img src="https://res.cloudinary.com/detcvmtip/image/upload/v1652327250/pokedex_images/vs1_iq54dn.png" class="img-fluid d-block mx-auto" alt="Versus symbol.">
+            </div>
+            <div class="row">
+                <h2>{{opponent.first_name.title()}}</h2>
+                <img src="{{opponent.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <th>{{opponent.first_name.title()}}'s Squad</th>
+                </tr>
+                {% for poke in opp_poke %}
+                <tr>
+                    <td colspan="3">{{poke["name"].title()}}</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."><td>
+                    <td>HP:</td>
+                    <td>{{poke["hp"]}}</td>
+                </tr>
+                <tr>
+                    <td>Attack:</td>
+                    <td>{{poke["attack"]}}</td>
+                </tr>
+                <tr>
+                    <td>Defense:</td>
+                    <td>{{poke["defense"]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
