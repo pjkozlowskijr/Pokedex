@@ -80,6 +80,8 @@ def catch(name):
     if not current_user.check_user_has_poke(poke) and current_user.pokemon.count() < 5:
         current_user.catch_poke(poke)
         flash(f"{poke.name.title()} was added to your collection.", "success")
+        if current_user.pokemon.count() == 5:
+            return redirect(url_for("main.view_collection"))
         return redirect(url_for("main.lookup"))
     elif current_user.check_user_has_poke(poke):
         flash("You already have this Pok\u00e9mon in your collection.", "danger")
