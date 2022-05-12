@@ -14,13 +14,63 @@ hr{
     color: rgb(223, 222, 195);
     font-size: 24px;
     width: 100%;
+    margin-top: 12px;
+}
+
+table{
+    color: rgb(58, 61, 56);
 }
 
 #user_squad img, #opp_squad img{
-    height: 10vh;
+    height: 15vh;
+    padding-right: 10px;
 }
 
 #matchup img{
     height: 20vh;
     width: auto;
+}
+
+#user_squad{
+    margin-right: auto;
+    font-size: 24px;
+}
+
+#opp_squad{
+    margin-left: auto;
+    font-size: 24px;
+}
+
+thead th{
+    text-align: center;
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+td{
+    text-align: center;
+}
+
+table tbody:not(:last-child){
+    border-bottom: 1px solid rgb(58, 61, 56);
+}
+
+h2{
+    font-size: 48px;
+    text-align: center;
+    color: rgb(58, 61, 56);
+    font-weight: bold;
+}
+
+#vs{
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+#results{
+    color: rgb(58, 61, 56);
+}
+
+#results p, #results li{
+    font-size: 24px;
 }

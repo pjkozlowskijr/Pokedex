@@ -11,69 +11,76 @@ Battle
 {% block content %}
 
 <h1>Pok&eacute;mon Battleground</h1>
-<hr>
 <a class="btn" href="{{url_for('main.launch_attack', id=opponent.id)}}">Launch Attack&nbsp;<i class="bi bi-bullseye"></i></a>
-    <div class="row">
-        <div id="user_squad" class="col-md-4">
-            <table>
-                <tr>
-                    <th>Your Squad</th>
-                </tr>
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <table id="user_squad">
+                <thead>
+                    <tr>
+                        <th colspan="3">Your Squad</th>
+                    </tr>
+                </thead>
                 {% for poke in user_poke %}
-                <tr>
-                    <td colspan="3">{{poke["name"].title()}}</td>
-                </tr>
-                <tr>
-                    <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."></td>
-                    <td>HP:</td>
-                    <td>{{poke["hp"]}}</td>
-                </tr>
-                <tr>
-                    <td>Attack:</td>
-                    <td>{{poke["attack"]}}</td>
-                </tr>
-                <tr>
-                    <td>Defense:</td>
-                    <td>{{poke["defense"]}}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>{{poke["name"].title()}}</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."></td>
+                        <td>HP:</td>
+                        <td>{{poke["hp"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Attack:</td>
+                        <td>{{poke["attack"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Defense:</td>
+                        <td>{{poke["defense"]}}</td>
+                    </tr>
+                </tbody>
                 {% endfor %}
             </table>
         </div>
-        <div id="matchup" class="col-md-4">
+        <div id="matchup" class="col-md-6">
             <div class="row">
                 <h2>{{current_user.first_name.title()}} (You)</h2>
                 <img src="{{current_user.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
             </div>
             <div class="row">
-                <img src="https://res.cloudinary.com/detcvmtip/image/upload/v1652327250/pokedex_images/vs1_iq54dn.png" class="img-fluid d-block mx-auto" alt="Versus symbol.">
+                <img id="vs" src="https://res.cloudinary.com/detcvmtip/image/upload/v1652327250/pokedex_images/vs3_t0efx6.png" class="img-fluid d-block mx-auto" alt="Versus symbol.">
             </div>
             <div class="row">
                 <h2>{{opponent.first_name.title()}} (Opponent)</h2>
                 <img src="{{opponent.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
             </div>
         </div>
-        <div id="opp_squad" class="col-md-4">
-            <table>
-                <tr>
-                    <th>Opponent's Squad</th>
-                </tr>
+        <div class="col-md-3">
+            <table id="opp_squad">
+                <thead>
+                    <tr>
+                        <th colspan="3">Opponent's Squad</th>
+                    </tr>
+                </thead>
                 {% for poke in opp_poke %}
-                <tr>
-                    <td colspan="3">{{poke["name"].title()}}</td>
-                </tr>
-                <tr>
-                    <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."></td>
-                    <td>HP:</td>
-                    <td>{{poke["hp"]}}</td>
-                </tr>
-                <tr>
-                    <td>Attack:</td>
-                    <td>{{poke["attack"]}}</td>
-                </tr>
-                <tr>
-                    <td>Defense:</td>
-                    <td>{{poke["defense"]}}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>{{poke["name"].title()}}</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="3"><img src="{{poke['sprite']}}" class="img-fluid d-block mx-auto" alt="Picture of {{poke['name']}}."></td>
+                        <td>HP:</td>
+                        <td>{{poke["hp"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Attack:</td>
+                        <td>{{poke["attack"]}}</td>
+                    </tr>
+                    <tr>
+                        <td>Defense:</td>
+                        <td>{{poke["defense"]}}</td>
+                    </tr>
+                </tbody>
                 {% endfor %}
             </table>
         </div>

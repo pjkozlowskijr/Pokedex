@@ -126,6 +126,7 @@ class Battle:
     user_squad = []
     opp_squad = []
     winner = []
+    elim_poke = []
     
     @classmethod
     def make_user_squad(cls):
@@ -161,13 +162,14 @@ class Battle:
                     Battle.opp_squad[0]["hp"] = 0
                 else:
                     Battle.opp_squad[0]["hp"] -= Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]
-                Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s HP was reduced to {Battle.opp_squad[0]['hp']} from the attack by {Battle.user_squad[0]['name']}.")
+                Battle.results.append(f"{Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()} HP was reduced to {Battle.opp_squad[0]['hp']} from the attack by {Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()}.")
             else:
                 Battle.opp_squad[0]["defense"] -= Battle.user_squad[0]["attack"]
-                Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s Defense was reduced to {Battle.opp_squad[0]['defense']} from the attack by {Battle.user_squad[0]['name']}.")
+                Battle.results.append(f"{Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()} defense was reduced to {Battle.opp_squad[0]['defense']} from the attack by {Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()}.")
             if Battle.opp_squad[0]["hp"] == 0:
-                elim_poke = Battle.opp_squad.pop(0)
-                Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
+                elim = Battle.opp_squad.pop(0)
+                Battle.elim_poke.append(elim)
+                Battle.results.append(f"{Battle.elim_poke[-1]['owner'].title()}'s {Battle.elim_poke[-1]['name'].title()} was eliminated.")
                 break
 
             if Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"] > 0:
@@ -175,20 +177,21 @@ class Battle:
                     Battle.user_squad[0]["hp"] = 0
                 else:
                     Battle.user_squad[0]["hp"] -= Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]
-                Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['name']}.")
+                Battle.results.append(f"{Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()}HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()}.")
             else:
                 Battle.user_squad[0]["defense"] -= Battle.opp_squad[0]["attack"]
-                Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s Defense was reduced to {Battle.user_squad[0]['defense']} from the attack by {Battle.opp_squad[0]['name']}.")
+                Battle.results.append(f"{Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()} defense was reduced to {Battle.user_squad[0]['defense']} from the attack by {Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()}.")
             if Battle.user_squad[0]["hp"] == 0:
-                elim_poke = Battle.user_squad.pop(0)
-                Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
+                elim = Battle.user_squad.pop(0)
+                Battle.elim_poke.append(elim)
+                Battle.results.append(f"{Battle.elim_poke[-1]['owner'].title()}'s {Battle.elim_poke[-1]['name'].title()} was eliminated.")
                 break
 
     @classmethod
     def check_opp_squad(cls, id):
         opponent = User.query.get(id)
         if not Battle.opp_squad:
-            Battle.results.append(f"YOU WIN!!! Congratulations! You defeated {Battle.opp_squad[0]['owner'].upper()}.")
+            Battle.results.append(f"YOU WIN!!! Congratulations! You defeated {Battle.elim_poke[-1]['owner'].title()}.")
             current_user.wins += 1
             current_user.battles += 1
             current_user.save()
@@ -204,7 +207,7 @@ class Battle:
     def check_user_squad(cls, id):
         opponent = User.query.get(id)
         if not Battle.user_squad:
-            Battle.results.append(f"YOU LOSE!!! {Battle.opp_squad[0]['owner'].upper()} has defeated you. Better luck next time.")
+            Battle.results.append(f"YOU LOSE!!! {Battle.opp_squad[0]['owner'].title()} has defeated you. Better luck next time.")
             opponent.wins += 1
             opponent.battles += 1
             opponent.save()
