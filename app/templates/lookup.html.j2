@@ -11,7 +11,7 @@ Lookup
 {% block content %}
     <div id="lookup_form">
         <h1>Find Pok&eacute;mon</h1>
-        <p>Enter your favorite Pok&eacute;mon in the search bar to look it up in the Pok&eacute;dex.</p>
+        <p>Enter your favorite Pok&eacute;mon in the search bar to look it up in the Pok&eacute;dex. Leave search bar empty to get a random Pok&eacute;mon.</p>
         <hr>
         <form action="{{url_for('main.lookup')}}" method="POST">
             {{form.hidden_tag()}}
@@ -24,7 +24,7 @@ Lookup
             </div>
             <br>
             <div>
-                {{form.search(class="btn form-control")}}
+                {{form.search(class="btn form-control", value="Search or Randomize (leave blank)")}}
             </div>
         </form>
     </div>

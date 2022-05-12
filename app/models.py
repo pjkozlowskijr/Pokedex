@@ -99,9 +99,12 @@ class Pokemon(db.Model):
         return f"<Pokemon: {self.id} | {self.name}>"
 
     @classmethod
-    def is_poke_in_db(cls, name):
+    def poke_name_in_db(cls, name):
         return Pokemon.query.filter_by(name=name).count()>0
-        # return self.query.get(user_poke, (self.user_id == user_poke.c.user_id)).filter(user_poke.c.poke_id == self.id).first()
+
+    @classmethod
+    def poke_id_in_db(cls, id):
+        return Pokemon.query.filter_by(poke_id_num=id).count()>0
 
     def poke_to_db(self, poke_dict):
         self.name = poke_dict["name"]
