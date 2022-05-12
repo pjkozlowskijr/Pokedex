@@ -43,16 +43,20 @@ Battle
             </table>
         </div>
         <div id="matchup" class="col-md-6">
-            <div class="row">
-                <h2>{{current_user.first_name.title()}} (You)</h2>
-                <img src="{{current_user.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+            <div class="row justify-content-start">
+                <div id="user">
+                    <h2>{{current_user.first_name.title()}} (You)</h2>
+                    <img src="{{current_user.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+                </div>
             </div>
             <div class="row">
                 <img id="vs" src="https://res.cloudinary.com/detcvmtip/image/upload/v1652327250/pokedex_images/vs3_t0efx6.png" class="img-fluid d-block mx-auto" alt="Versus symbol.">
             </div>
-            <div class="row">
-                <h2>{{opponent.first_name.title()}} (Opponent)</h2>
-                <img src="{{opponent.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+            <div class="row justify-content-end">
+                <div id="opp">
+                    <h2>{{opponent.first_name.title()}} (Opponent)</h2>
+                    <img src="{{opponent.get_icon_url()}}" class="img-fluid d-block mx-auto" alt="User avatar.">
+                </div>
             </div>
         </div>
         <div class="col-md-3">

@@ -26,8 +26,8 @@ table{
     padding-right: 10px;
 }
 
-#matchup img{
-    height: 20vh;
+#user img, #opp img{
+    height: 25vh;
     width: auto;
 }
 
@@ -62,9 +62,22 @@ h2{
     font-weight: bold;
 }
 
+#matchup h2{
+    font-size: 56px;
+}
+
+h3{
+    font-size: 40px;
+    text-align: center;
+    color: rgb(58, 61, 56);
+    font-weight: bold;
+}
+
 #vs{
     margin-top: 5vh;
     margin-bottom: 5vh;
+    height: 15vh;
+    width: auto;
 }
 
 #results{
@@ -73,4 +86,33 @@ h2{
 
 #results p, #results li{
     font-size: 24px;
+}
+
+#results p{
+    text-align: center;
+}
+
+#user, #opp{
+    width: 25vw;
+}
+
+#outcome{
+    margin-top: 25px;
+}
+
+#outcome img{
+    height: 20vh;
+    width: auto;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#recap{
+    margin-top: 25px;
+    font-size: 24px;
+    color: rgb(58, 61, 56);
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
 }

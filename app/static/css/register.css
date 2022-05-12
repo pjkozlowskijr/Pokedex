@@ -14,8 +14,12 @@
 }
 
 #reg_form .col{
-    font-size: 32px;
+    font-size: 28px;
     text-align: center;
+}
+
+#reg_form .col img{
+    width: 80%;
 }
 
 h1{

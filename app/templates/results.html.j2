@@ -1,8 +1,8 @@
 {% extends "base.html.j2" %}
 
-{# {% block css %}
-
-{% endblock %} #}
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/battle.css')}}">
+{% endblock %}
 
 {% block title %}
 Battle
@@ -10,25 +10,20 @@ Battle
 
 {% block content %}
 
-<div id="result_head">
-    <h1> Pok&eacute;mon Battleground</h1>
-    <hr>
-    <a class="btn" href="{{url_for('main.view_users')}}">Battle Again&nbsp;<i class="bi bi-arrow-repeat"></i></a>
+<h1> Pok&eacute;mon Battleground</h1>
+<a class="btn" href="{{url_for('main.view_users')}}">Battle Again&nbsp;<i class="bi bi-arrow-repeat"></i></a>
+<div id="outcome">
+    <h2>The battle has ended...</h2>
+    <h2>{{results[-1]}}</h2>
+    <img src="{{winner[0].get_icon_url()}}" alt="Winner's avatar.">
 </div>
-<div id="result_body">
-    <div id="outcome">
-        <h2>The battle has ended!</h2>
-        {% for result in results[-1] %}
-            {{result}}
-        {% endfor %}
-        <img src="{{winner[0].get_icon_url()}}" alt="Winner's avatar.">
-    </div>
-    <div id="recap">
-        <h2>A summary of last round's action:</h3>
-        {% for result in results[:-1] %}
-            {{result}}
-        {% endfor %}
-    </div>
+<div id="recap">
+    <h3>Final round action:</h3>
+    <ol>
+    {% for result in results[:-1] %}
+        <li>{{result}}</li>
+    {% endfor %}
+    </ol>
 </div>
 
 {% endblock %}
