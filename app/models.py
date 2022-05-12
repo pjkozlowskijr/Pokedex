@@ -125,6 +125,7 @@ class Battle:
     results = []
     user_squad = []
     opp_squad = []
+    winner = []
     
     @classmethod
     def make_user_squad(cls):
@@ -155,20 +156,29 @@ class Battle:
     @classmethod
     def attack_seq(cls):
         while Battle.opp_squad[0]["hp"] > 0 or Battle.user_squad[0]["hp"] > 0:
-            if Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]) <= 0:
-                Battle.opp_squad[0]["hp"] = 0
+            if Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"] > 0:
+                if Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]) <= 0:
+                    Battle.opp_squad[0]["hp"] = 0
+                else:
+                    Battle.opp_squad[0]["hp"] -= Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]
+                Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s HP was reduced to {Battle.opp_squad[0]['hp']} from the attack by {Battle.user_squad[0]['name']}.")
             else:
-                Battle.opp_squad[0]["hp"] = Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"])
-            Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s HP was reduced to {Battle.opp_squad[0]['hp']} from the attack by {Battle.user_squad[0]['name']}.")
+                Battle.opp_squad[0]["defense"] -= Battle.user_squad[0]["attack"]
+                Battle.results.append(f"{Battle.opp_squad[0]['name'].title()}'s Defense was reduced to {Battle.opp_squad[0]['defense']} from the attack by {Battle.user_squad[0]['name']}.")
             if Battle.opp_squad[0]["hp"] == 0:
                 elim_poke = Battle.opp_squad.pop(0)
                 Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
                 break
-            if Battle.user_squad[0]["hp"] - (Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]) <= 0:
-                Battle.user_squad[0]["hp"] = 0
+
+            if Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"] > 0:
+                if Battle.user_squad[0]["hp"] - (Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]) <= 0:
+                    Battle.user_squad[0]["hp"] = 0
+                else:
+                    Battle.user_squad[0]["hp"] -= Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]
+                Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['name']}.")
             else:
-                Battle.user_squad[0]["hp"] = Battle.user_squad[0]["hp"] - (Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"])
-            Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['name']}.")
+                Battle.user_squad[0]["defense"] -= Battle.opp_squad[0]["attack"]
+                Battle.results.append(f"{Battle.user_squad[0]['name'].title()}'s Defense was reduced to {Battle.user_squad[0]['defense']} from the attack by {Battle.opp_squad[0]['name']}.")
             if Battle.user_squad[0]["hp"] == 0:
                 elim_poke = Battle.user_squad.pop(0)
                 Battle.results.append(f"{elim_poke['name'].title()} has been eliminated.")
@@ -182,10 +192,13 @@ class Battle:
             current_user.wins += 1
             current_user.battles += 1
             current_user.save()
+            Battle.winner.append(current_user)
             opponent.losses += 1
             opponent.battles += 1
             opponent.save()
             return False
+        else:
+            return True
 
     @classmethod
     def check_user_squad(cls, id):
@@ -194,6 +207,20 @@ class Battle:
             Battle.results.append(f"{Battle.opp_squad[0]['owner'].upper()} WINS!!!")
             opponent.wins += 1
             opponent.battles += 1
+            opponent.save()
+            Battle.winner.append(opponent)
             current_user.losses += 1
             current_user.battles += 1
-            return False    
+            current_user.save()
+            return False
+        else:
+            return True
+
+    @classmethod
+    def clear_results(cls):
+        Battle.results = []
+
+    @classmethod
+    def clear_squads(cls):
+        Battle.user_squad = []
+        Battle.opp_squad = []

@@ -120,6 +120,7 @@ def view_user_pokemon(id):
 @login_required
 def start_battle(id):
     opponent = User.query.get(id)
+    Battle.clear_squads()
     Battle.make_user_squad()
     Battle.make_opp_squad(opponent)
     return render_template("start_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent)
@@ -128,7 +129,14 @@ def start_battle(id):
 @login_required
 def launch_attack(id):
     opponent = User.query.get(id)
+    Battle.clear_results()
     Battle.attack_seq()
-    if Battle.check_opp_squad(id) and Battle.check_opp_squad(id):
+    if Battle.check_user_squad(id) and Battle.check_opp_squad(id):
         return render_template("continue_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent, results=Battle.results)
-    return render_template("continue_battle.html.j2", user_poke=Battle.user_squad, opp_poke=Battle.opp_squad, opponent=opponent, results=Battle.results)
+    elif Battle.check_user_squad(id) == True or Battle.check_opp_squad(id) == True:
+        return redirect(url_for("main.results"))
+
+@main.route("/results")
+@login_required
+def results():
+    return render_template("results.html.j2", results=Battle.results, winner=Battle.winner)
