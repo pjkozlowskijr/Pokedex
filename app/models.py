@@ -159,7 +159,7 @@ class Battle:
 
     @classmethod
     def attack_seq(cls):
-        while Battle.opp_squad[0]["hp"] > 0 or Battle.user_squad[0]["hp"] > 0:
+        while Battle.opp_squad[0]["hp"] > 0 and Battle.user_squad[0]["hp"] > 0:
             if Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"] > 0:
                 if Battle.opp_squad[0]["hp"] - (Battle.user_squad[0]["attack"] - Battle.opp_squad[0]["defense"]) <= 0:
                     Battle.opp_squad[0]["hp"] = 0
@@ -180,7 +180,7 @@ class Battle:
                     Battle.user_squad[0]["hp"] = 0
                 else:
                     Battle.user_squad[0]["hp"] -= Battle.opp_squad[0]["attack"] - Battle.user_squad[0]["defense"]
-                Battle.results.append(f"{Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()}HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()}.")
+                Battle.results.append(f"{Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()} HP was reduced to {Battle.user_squad[0]['hp']} from the attack by {Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()}.")
             else:
                 Battle.user_squad[0]["defense"] -= Battle.opp_squad[0]["attack"]
                 Battle.results.append(f"{Battle.user_squad[0]['owner'].title()}'s {Battle.user_squad[0]['name'].title()} defense was reduced to {Battle.user_squad[0]['defense']} from the attack by {Battle.opp_squad[0]['owner'].title()}'s {Battle.opp_squad[0]['name'].title()}.")
