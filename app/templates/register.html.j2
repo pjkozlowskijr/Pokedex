@@ -46,6 +46,9 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% for error in form.icon.errors %}
+                    <small>{{error}}</small>
+                {% endfor %}     
             </div>
         </div>
         <div class="form_lines">
@@ -69,7 +72,7 @@
             {% else %}
             {{form.fav_pokemon(class="form-control", value=current_user.fav_pokemon)}}
             {% endif %}
-            {% for error in form.last_name.errors %}
+            {% for error in form.fav_pokemon.errors %}
                 <small>{{error}}</small>
             {% endfor %}
         </div>
