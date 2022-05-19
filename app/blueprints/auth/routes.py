@@ -9,7 +9,7 @@ import requests
 def register():
     form = RegisterForm()
     if request.method == "POST" and form.validate_on_submit():
-        try:
+        # try:
             new_user_data = {
                 "first_name": form.first_name.data.title(),
                 "last_name": form.last_name.data.title(),
@@ -26,11 +26,11 @@ def register():
             new_user_object = User()
             new_user_object.form_to_db(new_user_data)
             new_user_object.save()
-        except:
-            flash("There was an unexpected error creating your account. Please try again later.", "danger")
-            return render_template("register.html.j2", form=form)
-        flash("You have successfully registered. Please login to use the Pok\u00e9dex!", "success")
-        return redirect(url_for("auth.login"))
+        # except:
+        #     flash("There was an unexpected error creating your account. Please try again later.", "danger")
+        #     return render_template("register.html.j2", form=form)
+            flash("You have successfully registered. Please login to use the Pok\u00e9dex!", "success")
+            return redirect(url_for("auth.login"))
     return render_template("register.html.j2", form=form)
 
 @auth.route("/login", methods=["GET", "POST"])
